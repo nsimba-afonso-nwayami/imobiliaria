@@ -3,7 +3,7 @@ import VideoBg from "../../assets/videos/hero.mp4";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center">
+    <section className="relative min-h-[90vh] md:min-h-screen w-full overflow-hidden flex items-center pb-28 md:pb-36">
       {/* Video Background com Filtro de Nitidez */}
       <div className="absolute inset-0 w-full h-full">
         <video
