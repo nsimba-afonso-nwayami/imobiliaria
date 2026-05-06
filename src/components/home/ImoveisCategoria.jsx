@@ -15,12 +15,12 @@ import cat6 from "../../assets/img/imovel6.jpg";
 
 export default function ImoveisCategoria() {
   const categorias = [
-    { name: "Apartamentos", image: cat1, path: "/imoveis/categoria/apartamentos" },
-    { name: "Vivendas", image: cat2, path: "/imoveis/categoria/vivendas" },
-    { name: "Escritórios", image: cat3, path: "/imoveis/categoria/escritorios" },
-    { name: "Terrenos", image: cat4, path: "/imoveis/categoria/terrenos" },
-    { name: "Comerciais", image: cat5, path: "/imoveis/categoria/comerciais" },
-    { name: "Luxo", image: cat6, path: "/imoveis/categoria/luxo" },
+    { name: "Apartamentos", image: cat1, path: "/imoveis/categoria/" },
+    { name: "Vivendas", image: cat2, path: "/imoveis/categoria/" },
+    { name: "Escritórios", image: cat3, path: "/imoveis/categoria/" },
+    { name: "Terrenos", image: cat4, path: "/imoveis/categoria/" },
+    { name: "Comerciais", image: cat5, path: "/imoveis/categoria/" },
+    { name: "Luxo", image: cat6, path: "/imoveis/categoria/" },
   ];
 
   return (
