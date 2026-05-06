@@ -17,6 +17,12 @@ import Sobre from "../pages/site/Sobre";
 import Contato from "../pages/site/Contato";
 import NotFound from "../pages/site/NotFound";
 
+//Autenticação
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
+
 
 export default function AppRoutes() {
   return (
@@ -34,7 +40,13 @@ export default function AppRoutes() {
         <Route path="*" element={<NotFound />} />
       </Route>
 
-      {/*Rotas de autenticação */}
+      {/*Rotas de autenticação*/}
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+
+      {/*Dashboard comprador*/}
     </Routes>
   );
 }
