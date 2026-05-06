@@ -10,6 +10,7 @@ import SiteLayout from "../layouts/SiteLayout";
 import Home from "../pages/site/Home";
 import Imoveis from "../pages/site/Imoveis";
 import DetalhesImovel from "../pages/site/DetalhesImovel";
+import Categoria from "../pages/site/Categoria";
 import Sobre from "../pages/site/Sobre";
 import Contato from "../pages/site/Contato";
 import NotFound from "../pages/site/NotFound";
@@ -23,6 +24,7 @@ export default function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/imoveis" element={<Imoveis />} />
         <Route path="/imoveis/detalhes" element={<DetalhesImovel />} />
+        <Route path="/imoveis/categoria" element={<Categoria />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="*" element={<NotFound />} />
