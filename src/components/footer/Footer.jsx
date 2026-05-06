@@ -24,7 +24,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-blue-950 text-slate-50 border-t border-blue-900/40 relative overflow-hidden">
+    <footer className="bg-blue-950 text-slate-50 border-t pt-24 border-blue-900/40 relative overflow-hidden">
       {/* Glow Decorativo */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-sky-700/5 blur-[100px] rounded-full pointer-events-none"></div>
 
