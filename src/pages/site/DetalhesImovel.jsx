@@ -16,6 +16,7 @@ export default function DetalhesImovel() {
 
   return (
     <>
+      <title>Detalhes | Imobiliária</title>
       <section className="py-32 px-6 bg-white relative overflow-hidden">
         
         {/* Background Decorativo Industrial */}
