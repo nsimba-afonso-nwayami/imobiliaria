@@ -5,9 +5,9 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import imagem1 from "../../assets/img/imovel1.jpg";
-import imagem2 from "../../assets/img/imovel2.jpg";
-import imagem3 from "../../assets/img/imovel3.jpg";
+import imagem1 from "../../assets/img/Imovel1.jpg";
+import imagem2 from "../../assets/img/Imovel2.jpg";
+import imagem3 from "../../assets/img/Imovel3.jpg";
 
 import VudeoDetalhe from "../../assets/videos/detalhes.mp4";
 

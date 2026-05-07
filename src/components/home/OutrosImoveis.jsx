@@ -8,12 +8,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 // Imagens (Estrutura mantida)
-import imovel1 from "../../assets/img/imovel1.jpg";
-import imovel2 from "../../assets/img/imovel2.jpg";
-import imovel3 from "../../assets/img/imovel3.jpg";
-import imovel4 from "../../assets/img/imovel4.jpg";
-import imovel5 from "../../assets/img/imovel5.jpg";
-import imovel6 from "../../assets/img/imovel6.jpg";
+import imovel1 from "../../assets/img/Imovel1.jpg";
+import imovel2 from "../../assets/img/Imovel2.jpg";
+import imovel3 from "../../assets/img/Imovel3.jpg";
+import imovel4 from "../../assets/img/Imovel4.jpg";
+import imovel5 from "../../assets/img/Imovel5.jpg";
+import imovel6 from "../../assets/img/Imovel6.jpg";
 
 export default function OutrosImoveis() {
   const [imoveis] = useState([

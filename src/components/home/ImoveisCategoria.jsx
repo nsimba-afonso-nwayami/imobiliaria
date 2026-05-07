@@ -6,12 +6,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import cat1 from "../../assets/img/imovel1.jpg";
-import cat2 from "../../assets/img/imovel2.jpg";
-import cat3 from "../../assets/img/imovel3.jpg";
-import cat4 from "../../assets/img/imovel4.jpg";
-import cat5 from "../../assets/img/imovel5.jpg";
-import cat6 from "../../assets/img/imovel6.jpg";
+import cat1 from "../../assets/img/Imovel1.jpg";
+import cat2 from "../../assets/img/Imovel2.jpg";
+import cat3 from "../../assets/img/Imovel3.jpg";
+import cat4 from "../../assets/img/Imovel4.jpg";
+import cat5 from "../../assets/img/Imovel5.jpg";
+import cat6 from "../../assets/img/Imovel6.jpg";
 
 export default function ImoveisCategoria() {
   const categorias = [

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import imovel1 from "../../assets/img/imovel1.jpg";
-import imovel2 from "../../assets/img/imovel2.jpg";
+import imovel1 from "../../assets/img/Imovel1.jpg";
+import imovel2 from "../../assets/img/Imovel2.jpg";
 
 export default function Carrinho() {
   const [itens, setItens] = useState([
