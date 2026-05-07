@@ -15,6 +15,8 @@ import Carrinho from "../pages/site/Carrinho";
 import Checkout from "../pages/site/Checkout";
 import Sobre from "../pages/site/Sobre";
 import Contato from "../pages/site/Contato";
+import Privacidade from "../pages/site/Privacidade";
+import Termos from "../pages/site/Termos";
 import NotFound from "../pages/site/NotFound";
 
 //Autenticação
@@ -37,6 +39,8 @@ export default function AppRoutes() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
+        <Route path="/privacidade" element={<Privacidade />} />
+        <Route path="/termos" element={<Termos />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
