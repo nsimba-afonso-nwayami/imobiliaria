@@ -28,6 +28,7 @@ import ResetPassword from "../pages/auth/ResetPassword";
 //Comprador
 import DashboardComprador from "../pages/comprador/DashboardComprador";
 import ImoveisComprador from "../pages/comprador/ImoveisComprador";
+import ListaInteresse from "../pages/comprador/ListaInteresse";
 
 //Investidor
 import DashboardInvestidor from "../pages/investidor/DashboardInvestidor";
@@ -61,6 +62,7 @@ export default function AppRoutes() {
       <Route path="/dashboard/comprador/">
         <Route path="" element={<DashboardComprador />} />
         <Route path="imoveis" element={<ImoveisComprador />} />
+        <Route path="interesse" element={<ListaInteresse />} />
       </Route>
 
       {/*Dashboard investidor*/}
