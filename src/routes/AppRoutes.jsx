@@ -29,6 +29,14 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import DashboardComprador from "../pages/comprador/DashboardComprador";
 import ImoveisComprador from "../pages/comprador/ImoveisComprador";
 import ListaInteresse from "../pages/comprador/ListaInteresse";
+import CompararImoveis from "../pages/comprador/CompararImoveis";
+import MinhasVisitas from "../pages/comprador/MinhasVisitas";
+import MinhasPropostas from "../pages/comprador/MinhasPropostas";
+import HistoricoComprador from "../pages/comprador/HistoricoComprador";
+import ConfiguracoesComprador from "../pages/comprador/ConfiguracoesComprador";
+import MensagensComprador from "../pages/comprador/MensagensComprador";
+import NotificacoesComprador from "../pages/comprador/NotificacoesComprador";
+import NotFoundComprador from "../pages/comprador/NotFoundComprador";
 
 //Investidor
 import DashboardInvestidor from "../pages/investidor/DashboardInvestidor";
@@ -63,6 +71,14 @@ export default function AppRoutes() {
         <Route path="" element={<DashboardComprador />} />
         <Route path="imoveis" element={<ImoveisComprador />} />
         <Route path="interesse" element={<ListaInteresse />} />
+        <Route path="comparador" element={<CompararImoveis />} />
+        <Route path="visitas" element={<MinhasVisitas />} />
+        <Route path="propostas" element={<MinhasPropostas />} />
+        <Route path="historico" element={<HistoricoComprador />} />
+        <Route path="configuracoes" element={<ConfiguracoesComprador />} />
+        <Route path="mensagens" element={<MensagensComprador />} />
+        <Route path="notificacoes" element={<NotificacoesComprador />} />
+        <Route path="*" element={<NotFoundComprador />} />
       </Route>
 
       {/*Dashboard investidor*/}
