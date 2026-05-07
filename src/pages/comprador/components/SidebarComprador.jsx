@@ -78,7 +78,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Imóveis
           </Link>
 
-          {/* 🏠 LISTA DE INTERESSE (substitui favoritos) */}
+          {/* LISTA DE INTERESSE (substitui favoritos) */}
           <Link
             to="/dashboard/comprador/interesse"
             className={`${linkStyle} ${
@@ -89,7 +89,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Lista de Interesse
           </Link>
 
-          {/* ⚖️ COMPARADOR */}
+          {/* COMPARADOR */}
           <Link
             to="/dashboard/comprador/comparador"
             className={`${linkStyle} ${
@@ -100,7 +100,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Comparar Imóveis
           </Link>
 
-          {/* 📅 VISITAS */}
+          {/* VISITAS */}
           <Link
             to="/dashboard/comprador/visitas"
             className={`${linkStyle} ${
@@ -111,7 +111,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Visitas Agendadas
           </Link>
 
-          {/* 📩 PROPOSTAS */}
+          {/* PROPOSTAS */}
           <Link
             to="/dashboard/comprador/propostas"
             className={`${linkStyle} ${
@@ -122,7 +122,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Propostas
           </Link>
 
-          {/* 📊 HISTÓRICO */}
+          {/* HISTÓRICO */}
           <Link
             to="/dashboard/comprador/historico"
             className={`${linkStyle} ${
@@ -133,7 +133,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Histórico
           </Link>
 
-          {/* ⚙️ CONFIGURAÇÕES */}
+          {/* CONFIGURAÇÕES */}
           <Link
             to="/dashboard/comprador/configuracoes"
             className={`${linkStyle} ${
