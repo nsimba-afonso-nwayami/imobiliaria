@@ -25,6 +25,9 @@ import Register from "../pages/auth/Register";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
 
+//Comprador
+import DashboardComprador from "../pages/comprador/DashboardComprador";
+
 
 export default function AppRoutes() {
   return (
@@ -51,6 +54,9 @@ export default function AppRoutes() {
       <Route path="/reset-password" element={<ResetPassword />} />
 
       {/*Dashboard comprador*/}
+      <Route path="/dashboard/comprador/">
+        <Route path="" element={<DashboardComprador />} />
+      </Route>
     </Routes>
   );
 }
