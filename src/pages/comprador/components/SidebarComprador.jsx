@@ -36,24 +36,23 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
         </button>
 
         {/* LOGO */}
-        {/* LOGO */}
         <div className="mb-10 pt-2">
-            <Link
-                to="/dashboard/comprador"
-                className="text-xl font-black tracking-tight flex items-center gap-2"
-            >
-                <div className="bg-white text-blue-950 p-1.5 rounded-lg shadow-md">
-                <i className="fas fa-building"></i>
-                </div>
+          <Link
+            to="/dashboard/comprador"
+            className="text-xl font-black tracking-tight flex items-center gap-2"
+          >
+            <div className="bg-white text-blue-950 p-1.5 rounded-lg shadow-md">
+              <i className="fas fa-building"></i>
+            </div>
 
-                <span className="text-white">
-                Imobi<span className="text-sky-400">Premium</span>
-                </span>
-            </Link>
+            <span className="text-white">
+              Imobi<span className="text-sky-400">Premium</span>
+            </span>
+          </Link>
 
-            <p className="text-[10px] text-sky-300/50 mt-4 uppercase font-black tracking-[0.2em]">
-                Painel do comprador
-            </p>
+          <p className="text-[10px] text-sky-300/50 mt-4 uppercase font-black tracking-[0.2em]">
+            Painel do comprador
+          </p>
         </div>
 
         {/* NAV */}
@@ -65,87 +64,86 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
               isActive("/dashboard/comprador") ? activeStyle : normalStyle
             }`}
           >
-            <i
-              className={`fas fa-gauge-high ${
-                isActive("/dashboard/comprador")
-                  ? "text-white"
-                  : "text-sky-400"
-              }`}
-            ></i>
+            <i className="fas fa-gauge-high text-sky-400"></i>
             Dashboard
           </Link>
 
           <Link
             to="/dashboard/comprador/imoveis"
             className={`${linkStyle} ${
-              isActive("/dashboard/comprador/imoveis")
-                ? activeStyle
-                : normalStyle
+              isActive("/dashboard/comprador/imoveis") ? activeStyle : normalStyle
             }`}
           >
-            <i
-              className={`fas fa-house ${
-                isActive("/dashboard/comprador/imoveis")
-                  ? "text-white"
-                  : "text-sky-400"
-              }`}
-            ></i>
+            <i className="fas fa-house text-sky-400"></i>
             Imóveis
           </Link>
 
+          {/* 🏠 LISTA DE INTERESSE (substitui favoritos) */}
           <Link
-            to="/dashboard/comprador/favoritos"
+            to="/dashboard/comprador/interesse"
             className={`${linkStyle} ${
-              isActive("/dashboard/comprador/favoritos")
-                ? activeStyle
-                : normalStyle
+              isActive("/dashboard/comprador/interesse") ? activeStyle : normalStyle
             }`}
           >
-            <i
-              className={`fas fa-heart ${
-                isActive("/dashboard/comprador/favoritos")
-                  ? "text-white"
-                  : "text-sky-400"
-              }`}
-            ></i>
-            Favoritos
+            <i className="fas fa-bookmark text-sky-400"></i>
+            Lista de Interesse
           </Link>
 
+          {/* ⚖️ COMPARADOR */}
           <Link
-            to="/dashboard/comprador/carrinho"
+            to="/dashboard/comprador/comparador"
             className={`${linkStyle} ${
-              isActive("/dashboard/comprador/carrinho")
-                ? activeStyle
-                : normalStyle
+              isActive("/dashboard/comprador/comparador") ? activeStyle : normalStyle
             }`}
           >
-            <i
-              className={`fas fa-cart-shopping ${
-                isActive("/dashboard/comprador/carrinho")
-                  ? "text-white"
-                  : "text-sky-400"
-              }`}
-            ></i>
-            Carrinho
+            <i className="fas fa-scale-balanced text-sky-400"></i>
+            Comparar Imóveis
           </Link>
 
+          {/* 📅 VISITAS */}
+          <Link
+            to="/dashboard/comprador/visitas"
+            className={`${linkStyle} ${
+              isActive("/dashboard/comprador/visitas") ? activeStyle : normalStyle
+            }`}
+          >
+            <i className="fas fa-calendar-check text-sky-400"></i>
+            Visitas Agendadas
+          </Link>
+
+          {/* 📩 PROPOSTAS */}
+          <Link
+            to="/dashboard/comprador/propostas"
+            className={`${linkStyle} ${
+              isActive("/dashboard/comprador/propostas") ? activeStyle : normalStyle
+            }`}
+          >
+            <i className="fas fa-file-contract text-sky-400"></i>
+            Propostas
+          </Link>
+
+          {/* 📊 HISTÓRICO */}
+          <Link
+            to="/dashboard/comprador/historico"
+            className={`${linkStyle} ${
+              isActive("/dashboard/comprador/historico") ? activeStyle : normalStyle
+            }`}
+          >
+            <i className="fas fa-clock-rotate-left text-sky-400"></i>
+            Histórico
+          </Link>
+
+          {/* ⚙️ CONFIGURAÇÕES */}
           <Link
             to="/dashboard/comprador/configuracoes"
             className={`${linkStyle} ${
-              isActive("/dashboard/comprador/configuracoes")
-                ? activeStyle
-                : normalStyle
+              isActive("/dashboard/comprador/configuracoes") ? activeStyle : normalStyle
             }`}
           >
-            <i
-              className={`fas fa-user-gear ${
-                isActive("/dashboard/comprador/configuracoes")
-                  ? "text-white"
-                  : "text-sky-400"
-              }`}
-            ></i>
+            <i className="fas fa-user-gear text-sky-400"></i>
             Perfil & Conta
           </Link>
+
         </nav>
 
         {/* LOGOUT */}
