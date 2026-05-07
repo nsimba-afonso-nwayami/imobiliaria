@@ -37,7 +37,7 @@ export default function Hero() {
 
           {/* Main Title com Quebra Inteligente */}
           <h1 className="text-slate-50 text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1] tracking-tighter mb-8 animate-fade-in-up">
-            Onde a <span className="text-transparent bg-clip-text bg-linear-to-b from-slate-50 to-slate-400">arquitetura</span> <br /> 
+            Onde o <span className="text-transparent bg-clip-text bg-linear-to-b from-slate-50 to-slate-400">imobiliário</span> <br /> 
             encontra o seu <span className="text-sky-700">sucesso.</span>
           </h1>
 
