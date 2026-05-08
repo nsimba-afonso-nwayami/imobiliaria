@@ -39,15 +39,15 @@ export default function HeaderInvestidor({ sidebarOpen, setSidebarOpen, title })
       {/* RIGHT */}
       <div className="flex items-center gap-3 sm:gap-5">
 
-        {/* ALERTAS DE INVESTIMENTO */}
-        <Link to="/dashboard/investidor/alertas" className={actionBtnStyle}>
-          <i className="fas fa-chart-line text-lg"></i>
+        {/* MENSAGENS */}
+        <Link to="/dashboard/investidor/mensagens" className={actionBtnStyle}>
+          <i className="fas fa-comment-dots text-lg"></i>
           <span className={badgeStyle}>5</span>
         </Link>
 
-        {/* OPORTUNIDADES */}
-        <Link to="/dashboard/investidor/oportunidades" className={actionBtnStyle}>
-          <i className="fas fa-coins text-lg"></i>
+        {/* NOTIFICAÇÓES */}
+        <Link to="/dashboard/investidor/notificacoes" className={actionBtnStyle}>
+          <i className="fas fa-bell text-lg"></i>
           <span className={badgeStyle}>2</span>
         </Link>
 
