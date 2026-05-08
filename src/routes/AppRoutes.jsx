@@ -40,6 +40,16 @@ import NotFoundComprador from "../pages/comprador/NotFoundComprador";
 
 //Investidor
 import DashboardInvestidor from "../pages/investidor/DashboardInvestidor";
+import PortfolioInvestidor from "../pages/investidor/PortfolioInvestidor";
+import InvestimentosDisponiveis from "../pages/investidor/InvestimentosDisponiveis";
+import MeusImoveisInvestidor from "../pages/investidor/MeusImoveisInvestidor";
+import HistoricoInvestidor from "../pages/investidor/HistoricoInvestidor";
+import OportunidadesInvestidor from "../pages/investidor/OportunidadesInvestidor";
+import RelatoriosInvestidor from "../pages/investidor/RelatoriosInvestidor";
+import ConfiguracoesInvestidor from "../pages/investidor/ConfiguracoesInvestidor";
+import MensagensInvestidor from "../pages/investidor/MensagensInvestidor";
+import NotificacoesInvestidor from "../pages/investidor/NotificacoesInvestidor";
+import NotFoundInvestidor from "../pages/investidor/NotFoundInvestidor";
 
 
 export default function AppRoutes() {
@@ -84,6 +94,16 @@ export default function AppRoutes() {
       {/*Dashboard investidor*/}
       <Route path="/dashboard/investidor/">
         <Route path="" element={<DashboardInvestidor />} />
+        <Route path="portfolio" element={<PortfolioInvestidor />} />
+        <Route path="investimentos" element={<InvestimentosDisponiveis />} />
+        <Route path="imoveis" element={<MeusImoveisInvestidor />} />
+        <Route path="historico" element={<HistoricoInvestidor />} />
+        <Route path="oportunidades" element={<OportunidadesInvestidor />} />
+        <Route path="relatorios" element={<RelatoriosInvestidor />} />
+        <Route path="configuracoes" element={<ConfiguracoesInvestidor />} />
+        <Route path="mensagens" element={<MensagensInvestidor />} />
+        <Route path="notificacoes" element={<NotificacoesInvestidor />} />
+        <Route path="*" element={<NotFoundInvestidor />} />
       </Route>
     </Routes>
   );
