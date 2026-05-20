@@ -40,13 +40,13 @@ export default function HeaderVendedor({ sidebarOpen, setSidebarOpen, title }) {
       <div className="flex items-center gap-3 sm:gap-5">
 
         {/* MENSAGENS */}
-        <Link to="/dashboard/investidor/mensagens" className={actionBtnStyle}>
+        <Link to="/dashboard/vendedor/mensagens" className={actionBtnStyle}>
           <i className="fas fa-comment-dots text-lg"></i>
           <span className={badgeStyle}>5</span>
         </Link>
 
         {/* NOTIFICAÇÓES */}
-        <Link to="/dashboard/investidor/notificacoes" className={actionBtnStyle}>
+        <Link to="/dashboard/vendedor/notificacoes" className={actionBtnStyle}>
           <i className="fas fa-bell text-lg"></i>
           <span className={badgeStyle}>2</span>
         </Link>
@@ -59,7 +59,7 @@ export default function HeaderVendedor({ sidebarOpen, setSidebarOpen, title }) {
 
           <div className="text-right hidden lg:block">
             <p className="text-sm text-white font-black leading-none">
-              Investidor
+              Vendedor
             </p>
             <p className="text-[10px] text-sky-200/60 uppercase font-black tracking-widest mt-1">
               Portfolio ativo
@@ -67,7 +67,7 @@ export default function HeaderVendedor({ sidebarOpen, setSidebarOpen, title }) {
           </div>
 
           <Link
-            to="/dashboard/investidor/configuracoes"
+            to="/dashboard/vendedor/configuracoes"
             className="
               w-11 h-11
               cursor-pointer
