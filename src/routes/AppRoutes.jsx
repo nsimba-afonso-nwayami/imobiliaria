@@ -38,18 +38,18 @@ import MensagensComprador from "../pages/comprador/MensagensComprador";
 import NotificacoesComprador from "../pages/comprador/NotificacoesComprador";
 import NotFoundComprador from "../pages/comprador/NotFoundComprador";
 
-//Investidor
-import DashboardInvestidor from "../pages/investidor/DashboardInvestidor";
-import PortfolioInvestidor from "../pages/investidor/PortfolioInvestidor";
-import InvestimentosDisponiveis from "../pages/investidor/InvestimentosDisponiveis";
-import MeusImoveisInvestidor from "../pages/investidor/MeusImoveisInvestidor";
-import HistoricoInvestidor from "../pages/investidor/HistoricoInvestidor";
-import OportunidadesInvestidor from "../pages/investidor/OportunidadesInvestidor";
-import RelatoriosInvestidor from "../pages/investidor/RelatoriosInvestidor";
-import ConfiguracoesInvestidor from "../pages/investidor/ConfiguracoesInvestidor";
-import MensagensInvestidor from "../pages/investidor/MensagensInvestidor";
-import NotificacoesInvestidor from "../pages/investidor/NotificacoesInvestidor";
-import NotFoundInvestidor from "../pages/investidor/NotFoundInvestidor";
+//Vendedor
+import DashboardVendedor from "../pages/vendedor/DashboardVendedor";
+import PortfolioVendedor from "../pages/vendedor/PortfolioVendedor";
+import InvestimentosDisponiveis from "../pages/vendedor/InvestimentosDisponiveis";
+import MeusImoveisVendedor from "../pages/vendedor/MeusImoveisVendedor";
+import HistoricoVendedor from "../pages/vendedor/HistoricoVendedor";
+import OportunidadesVendedor from "../pages/vendedor/OportunidadesVendedor";
+import RelatoriosVendedor from "../pages/vendedor/RelatoriosVendedor";
+import ConfiguracoesVendedor from "../pages/vendedor/ConfiguracoesVendedor";
+import MensagensVendedor from "../pages/vendedor/MensagensVendedor";
+import NotificacoesVendedor from "../pages/vendedor/NotificacoesVendedor";
+import NotFoundVendedor from "../pages/vendedor/NotFoundVendedor";
 
 
 export default function AppRoutes() {
@@ -91,19 +91,19 @@ export default function AppRoutes() {
         <Route path="*" element={<NotFoundComprador />} />
       </Route>
 
-      {/*Dashboard investidor*/}
-      <Route path="/dashboard/investidor/">
-        <Route path="" element={<DashboardInvestidor />} />
-        <Route path="portfolio" element={<PortfolioInvestidor />} />
+      {/*Dashboard vendedor*/}
+      <Route path="/dashboard/vendedor/">
+        <Route path="" element={<DashboardVendedor />} />
+        <Route path="portfolio" element={<PortfolioVendedor />} />
         <Route path="investimentos" element={<InvestimentosDisponiveis />} />
-        <Route path="imoveis" element={<MeusImoveisInvestidor />} />
-        <Route path="historico" element={<HistoricoInvestidor />} />
-        <Route path="oportunidades" element={<OportunidadesInvestidor />} />
-        <Route path="relatorios" element={<RelatoriosInvestidor />} />
-        <Route path="configuracoes" element={<ConfiguracoesInvestidor />} />
-        <Route path="mensagens" element={<MensagensInvestidor />} />
-        <Route path="notificacoes" element={<NotificacoesInvestidor />} />
-        <Route path="*" element={<NotFoundInvestidor />} />
+        <Route path="imoveis" element={<MeusImoveisVendedor />} />
+        <Route path="historico" element={<HistoricoVendedor />} />
+        <Route path="oportunidades" element={<OportunidadesVendedor />} />
+        <Route path="relatorios" element={<RelatoriosVendedor />} />
+        <Route path="configuracoes" element={<ConfiguracoesVendedor />} />
+        <Route path="mensagens" element={<MensagensVendedor />} />
+        <Route path="notificacoes" element={<NotificacoesVendedor />} />
+        <Route path="*" element={<NotFoundVendedor />} />
       </Route>
     </Routes>
   );
