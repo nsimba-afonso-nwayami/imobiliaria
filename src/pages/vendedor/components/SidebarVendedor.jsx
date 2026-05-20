@@ -14,6 +14,9 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
   const activeStyle =
     "bg-sky-700 text-white shadow-lg shadow-blue-950/20";
 
+  const iconStyle = (path) =>
+    isActive(path) ? "text-white" : "text-sky-400";
+
   return (
     <>
       <aside
@@ -38,7 +41,7 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
         {/* LOGO */}
         <div className="mb-10 pt-2">
           <Link
-            to="/dashboard/investidor"
+            to="/dashboard/vendedor"
             className="text-xl font-black tracking-tight flex items-center gap-2"
           >
             <div className="bg-white text-blue-950 p-1.5 rounded-lg shadow-md">
@@ -51,7 +54,7 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
           </Link>
 
           <p className="text-[10px] text-sky-300/50 mt-4 uppercase font-black tracking-[0.2em]">
-            Painel do investidor
+            Painel do vendedor
           </p>
         </div>
 
@@ -60,111 +63,144 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
 
           {/* DASHBOARD */}
           <Link
-            to="/dashboard/investidor"
+            to="/dashboard/vendedor"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor") ? activeStyle : normalStyle
+              isActive("/dashboard/vendedor")
+                ? activeStyle
+                : normalStyle
             }`}
           >
-            <i className="fas fa-gauge-high text-sky-400"></i>
+            <i
+              className={`fas fa-gauge-high ${iconStyle(
+                "/dashboard/vendedor"
+              )}`}
+            ></i>
+
             Dashboard
           </Link>
 
-          {/* PORTFÓLIO */}
+          {/* MEUS IMÓVEIS */}
           <Link
-            to="/dashboard/investidor/portfolio"
+            to="/dashboard/vendedor/imoveis"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/portfolio")
+              isActive("/dashboard/vendedor/imoveis")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-briefcase text-sky-400"></i>
-            Portfólio
+            <i
+              className={`fas fa-house ${iconStyle(
+                "/dashboard/vendedor/imoveis"
+              )}`}
+            ></i>
+
+            Meus imóveis
           </Link>
 
-          {/* INVESTIMENTOS */}
+          {/* CLIENTES */}
           <Link
-            to="/dashboard/investidor/investimentos"
+            to="/dashboard/vendedor/clientes"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/investimentos")
+              isActive("/dashboard/vendedor/clientes")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-chart-line text-sky-400"></i>
-            Investimentos
+            <i
+              className={`fas fa-users ${iconStyle(
+                "/dashboard/vendedor/clientes"
+              )}`}
+            ></i>
+
+            Clientes
           </Link>
 
-          {/* 🏠 MEUS IMÓVEIS (NOVO) */}
+          {/* VISITAS */}
           <Link
-            to="/dashboard/investidor/imoveis"
+            to="/dashboard/vendedor/visitas"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/imoveis")
+              isActive("/dashboard/vendedor/visitas")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-house text-sky-400"></i>
-            Meus Imóveis
+            <i
+              className={`fas fa-calendar-check ${iconStyle(
+                "/dashboard/vendedor/visitas"
+              )}`}
+            ></i>
+
+            Visitas agendadas
           </Link>
 
           {/* HISTÓRICO */}
           <Link
-            to="/dashboard/investidor/historico"
+            to="/dashboard/vendedor/historico"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/historico")
+              isActive("/dashboard/vendedor/historico")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-clock-rotate-left text-sky-400"></i>
-            Histórico
-          </Link>
+            <i
+              className={`fas fa-clock-rotate-left ${iconStyle(
+                "/dashboard/vendedor/historico"
+              )}`}
+            ></i>
 
-          {/* OPORTUNIDADES */}
-          <Link
-            to="/dashboard/investidor/oportunidades"
-            className={`${linkStyle} ${
-              isActive("/dashboard/investidor/oportunidades")
-                ? activeStyle
-                : normalStyle
-            }`}
-          >
-            <i className="fas fa-bolt text-sky-400"></i>
-            Oportunidades
+            Histórico
           </Link>
 
           {/* RELATÓRIOS */}
           <Link
-            to="/dashboard/investidor/relatorios"
+            to="/dashboard/vendedor/relatorios"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/relatorios")
+              isActive("/dashboard/vendedor/relatorios")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-chart-pie text-sky-400"></i>
+            <i
+              className={`fas fa-chart-pie ${iconStyle(
+                "/dashboard/vendedor/relatorios"
+              )}`}
+            ></i>
+
             Relatórios
           </Link>
 
-          {/* CONFIGURAÇÕES */}
+          {/* PERFIL */}
           <Link
-            to="/dashboard/investidor/configuracoes"
+            to="/dashboard/vendedor/configuracoes"
             className={`${linkStyle} ${
-              isActive("/dashboard/investidor/configuracoes")
+              isActive("/dashboard/vendedor/configuracoes")
                 ? activeStyle
                 : normalStyle
             }`}
           >
-            <i className="fas fa-user-gear text-sky-400"></i>
+            <i
+              className={`fas fa-user-gear ${iconStyle(
+                "/dashboard/vendedor/configuracoes"
+              )}`}
+            ></i>
+
             Perfil & Conta
           </Link>
         </nav>
 
         {/* LOGOUT */}
         <div className="pt-6 border-t border-blue-900/50">
-          <button className="flex items-center gap-3 cursor-pointer w-full px-4 py-3 rounded-xl text-sky-200/60 hover:text-white hover:bg-blue-800/40 transition-all font-black text-sm group">
+          <button
+            className="
+              flex items-center gap-3
+              cursor-pointer w-full px-4 py-3
+              rounded-xl text-sky-200/60
+              hover:text-white hover:bg-blue-800/40
+              transition-all font-black text-sm group
+            "
+          >
             <i className="fas fa-right-from-bracket group-hover:translate-x-1 transition-transform"></i>
+
             Sair da conta
           </button>
         </div>
