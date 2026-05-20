@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function HeaderInvestidor({ sidebarOpen, setSidebarOpen, title }) {
+export default function HeaderVendedor({ sidebarOpen, setSidebarOpen, title }) {
 
   const actionBtnStyle =
     "relative w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl bg-blue-950 hover:bg-sky-700 text-white transition-all duration-300 shadow-sm group";
