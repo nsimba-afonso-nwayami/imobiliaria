@@ -40,11 +40,8 @@ import NotFoundComprador from "../pages/comprador/NotFoundComprador";
 
 //Vendedor
 import DashboardVendedor from "../pages/vendedor/DashboardVendedor";
-import PortfolioVendedor from "../pages/vendedor/PortfolioVendedor";
-import InvestimentosDisponiveis from "../pages/vendedor/InvestimentosDisponiveis";
 import MeusImoveisVendedor from "../pages/vendedor/MeusImoveisVendedor";
 import HistoricoVendedor from "../pages/vendedor/HistoricoVendedor";
-import OportunidadesVendedor from "../pages/vendedor/OportunidadesVendedor";
 import RelatoriosVendedor from "../pages/vendedor/RelatoriosVendedor";
 import ConfiguracoesVendedor from "../pages/vendedor/ConfiguracoesVendedor";
 import MensagensVendedor from "../pages/vendedor/MensagensVendedor";
@@ -94,11 +91,8 @@ export default function AppRoutes() {
       {/*Dashboard vendedor*/}
       <Route path="/dashboard/vendedor/">
         <Route path="" element={<DashboardVendedor />} />
-        <Route path="portfolio" element={<PortfolioVendedor />} />
-        <Route path="investimentos" element={<InvestimentosDisponiveis />} />
         <Route path="imoveis" element={<MeusImoveisVendedor />} />
         <Route path="historico" element={<HistoricoVendedor />} />
-        <Route path="oportunidades" element={<OportunidadesVendedor />} />
         <Route path="relatorios" element={<RelatoriosVendedor />} />
         <Route path="configuracoes" element={<ConfiguracoesVendedor />} />
         <Route path="mensagens" element={<MensagensVendedor />} />
