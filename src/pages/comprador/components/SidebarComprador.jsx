@@ -78,28 +78,6 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
             Imóveis
           </Link>
 
-          {/* LISTA DE INTERESSE (substitui favoritos) */}
-          <Link
-            to="/dashboard/comprador/interesse"
-            className={`${linkStyle} ${
-              isActive("/dashboard/comprador/interesse") ? activeStyle : normalStyle
-            }`}
-          >
-            <i className="fas fa-bookmark text-sky-400"></i>
-            Lista de Interesse
-          </Link>
-
-          {/* COMPARADOR */}
-          <Link
-            to="/dashboard/comprador/comparador"
-            className={`${linkStyle} ${
-              isActive("/dashboard/comprador/comparador") ? activeStyle : normalStyle
-            }`}
-          >
-            <i className="fas fa-scale-balanced text-sky-400"></i>
-            Comparar Imóveis
-          </Link>
-
           {/* VISITAS */}
           <Link
             to="/dashboard/comprador/visitas"
@@ -109,17 +87,6 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
           >
             <i className="fas fa-calendar-check text-sky-400"></i>
             Visitas Agendadas
-          </Link>
-
-          {/* PROPOSTAS */}
-          <Link
-            to="/dashboard/comprador/propostas"
-            className={`${linkStyle} ${
-              isActive("/dashboard/comprador/propostas") ? activeStyle : normalStyle
-            }`}
-          >
-            <i className="fas fa-file-contract text-sky-400"></i>
-            Propostas
           </Link>
 
           {/* HISTÓRICO */}
