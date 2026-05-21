@@ -1,9 +1,71 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
+import { registerSchema } from "../../validations/authValidation";
+import { registerUser } from "../../services/authService";
 
 export default function Register() {
+  const navigate = useNavigate();
 
   const btnPrimary =
     "w-full bg-blue-950 text-white py-4 rounded-xl font-black uppercase tracking-[0.2em] text-xs shadow-lg shadow-blue-950/20 hover:bg-sky-700 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2";
+
+     const {
+      register,
+      handleSubmit,
+      formState: { errors, isSubmitting },
+    } = useForm({
+      resolver: yupResolver(registerSchema),
+    });
+
+    const onSubmit = async (data) => {
+      try {
+        const payload = {
+          username: data.username,
+          email: data.email,
+          phone: data.phone,
+          profile: data.profile,
+          password: data.password,
+          password_confirm: data.password_confirm,
+        };
+
+        console.log("DADOS ENVIADOS:");
+        console.log(payload);
+
+        const response = await registerUser(payload);
+
+        console.log("RESPOSTA SUCESSO:");
+        console.log(response.data);
+
+        toast.success(response.message || "Conta criada com sucesso!");
+
+        navigate("/login");
+      } catch (error) {
+        console.error("ERRO COMPLETO:");
+        console.error(error);
+
+        console.log("ERROR RESPONSE:");
+        console.log(error.response);
+
+        console.log("ERROR DATA:");
+        console.log(error.response?.data);
+
+        if (error.response?.data) {
+          const errors = error.response.data;
+
+          Object.keys(errors).forEach((key) => {
+            if (Array.isArray(errors[key])) {
+              toast.error(errors[key][0]);
+            } else {
+              toast.error(errors[key]);
+            }
+          });
+        } else {
+          toast.error("Erro ao criar conta");
+        }
+      }
+    };
 
   return (
     <>
@@ -37,7 +99,7 @@ export default function Register() {
           </div>
 
           {/* FORM */}
-          <form className="mt-10 space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-10 space-y-5">
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
@@ -50,8 +112,14 @@ export default function Register() {
                 <input
                   type="text"
                   placeholder="Seu nome"
+                  {...register("username")}
                   className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
                 />
+                {errors.username && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.username.message}
+                  </p>
+                )}
               </div>
 
               {/* EMAIL */}
@@ -63,8 +131,14 @@ export default function Register() {
                 <input
                   type="email"
                   placeholder="exemplo@email.com"
+                  {...register("email")}
                   className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               {/* TELEFONE */}
@@ -76,8 +150,14 @@ export default function Register() {
                 <input
                   type="tel"
                   placeholder="+244 9XX XXX XXX"
+                  {...register("phone")}
                   className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
                 />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.phone.message}
+                  </p>
+                )}
               </div>
 
               {/* TIPO */}
@@ -86,11 +166,16 @@ export default function Register() {
                   Perfil
                 </label>
 
-                <select className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50 cursor-pointer">
+                <select {...register("profile")} className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50 cursor-pointer">
                   <option>Selecionar perfil</option>
-                  <option>Comprador</option>
-                  <option>Vendedor</option>
+                  <option value="Comprador">Comprador</option>
+                  <option value="Vendedor">Vendedor</option>
                 </select>
+                {errors.profile && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.profile.message}
+                  </p>
+                )}
               </div>
 
               {/* SENHA */}
@@ -102,8 +187,14 @@ export default function Register() {
                 <input
                   type="password"
                   placeholder="••••••••"
+                  {...register("password")}
                   className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.password.message}
+                  </p>
+                )}
               </div>
 
               {/* CONFIRMAR SENHA */}
@@ -115,17 +206,23 @@ export default function Register() {
                 <input
                   type="password"
                   placeholder="••••••••"
+                  {...register("password_confirm")}
                   className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
                 />
+                {errors.password_confirm && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.password_confirm.message}
+                  </p>
+                )}
               </div>
 
             </div>
 
             {/* BOTÃO */}
             <div className="pt-4">
-              <button type="button" className={btnPrimary}>
+              <button type="submit" disabled={isSubmitting} className={btnPrimary}>
                 <i className="fa-solid fa-user-plus"></i>
-                Criar conta
+                {isSubmitting ? "Criando conta..." : "Criar conta"}
               </button>
             </div>
 
