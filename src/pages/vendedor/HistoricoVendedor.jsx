@@ -7,56 +7,57 @@ export default function HistoricoVendedor() {
   const [selectedTransacao, setSelectedTransacao] = useState(null);
   const [openModal, setOpenModal] = useState(false);
 
+  // Dados focados na realidade P2P Angolana (Venda de Imóveis)
   const historico = [
     {
       id: 1,
       type: "Recebimento",
-      title: "Aluguel - Edifício Viana",
-      date: "05 Mai 2026",
-      value: "+ 4.500.000 Kz",
-      status: "Concluído",
+      title: "Sinal (20%) - Vivenda V3 Talatona",
+      date: "25 Mai 2026",
+      value: "+ 50.000.000 Kz",
+      status: "Confirmado",
       method: "Transferência Bancária",
       ref: "REF-992834",
-      category: "Renda"
+      category: "Venda de Imóvel"
     },
     {
       id: 2,
       type: "Pagamento",
-      title: "Manutenção Elevadores - Prime Office",
-      date: "02 Mai 2026",
-      value: "- 150.000 Kz",
+      title: "Emissão de Certidão Predial",
+      date: "22 Mai 2026",
+      value: "- 15.000 Kz",
       status: "Concluído",
       method: "Débito em Conta",
       ref: "REF-881722",
-      category: "Operacional"
+      category: "Documentação"
     },
     {
       id: 3,
       type: "Recebimento",
-      title: "Dividendos - Fundo Imobi Premium",
-      date: "28 Abr 2026",
-      value: "+ 850.000 Kz",
-      status: "Concluído",
-      method: "Carteira Digital",
+      title: "Pagamento Final - Apartamento Kilamba",
+      date: "10 Mai 2026",
+      value: "+ 45.000.000 Kz",
+      status: "Confirmado",
+      method: "Transferência Bancária",
       ref: "REF-772154",
-      category: "Investimento"
+      category: "Venda de Imóvel"
     },
     {
         id: 4,
-        type: "Aporte",
-        title: "Aquisição Unidade 402 - Talatona",
-        date: "15 Abr 2026",
-        value: "- 28.000.000 Kz",
-        status: "Processando",
-        method: "Escritura Pública",
+        type: "Pagamento",
+        title: "Destaque Premium de Anúncio (7 Dias)",
+        date: "05 Mai 2026",
+        value: "- 25.000 Kz",
+        status: "Concluído",
+        method: "Referência Multicaixa",
         ref: "REF-665241",
-        category: "Patrimônio"
+        category: "Marketing P2P"
       },
   ];
 
   return (
     <>
-      <title>Histórico de Atividades | Imobi Premium</title>
+      <title>Extrato e Transações | Imobi Premium</title>
 
       <VendedorLayout title="Linha do Tempo">
         <section className="space-y-8">
@@ -69,7 +70,7 @@ export default function HistoricoVendedor() {
             </div>
 
             <div className="flex gap-2 flex-wrap bg-white p-2 rounded-2xl shadow-sm border border-slate-50">
-              {["Todos", "Recebimentos", "Pagamentos", "Aportes"].map((f) => (
+              {["Todos", "Recebimentos", "Pagamentos"].map((f) => (
                 <button
                   key={f}
                   onClick={() => setSelectedFilter(f)}

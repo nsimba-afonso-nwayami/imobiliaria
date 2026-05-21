@@ -38,6 +38,8 @@ import NotFoundComprador from "../pages/comprador/NotFoundComprador";
 //Vendedor
 import DashboardVendedor from "../pages/vendedor/DashboardVendedor";
 import MeusImoveisVendedor from "../pages/vendedor/MeusImoveisVendedor";
+import InteressadosVendedor from "../pages/vendedor/InteressadosVendedor";
+import VisitasVendedor from "../pages/vendedor/VisitasVendedor";
 import HistoricoVendedor from "../pages/vendedor/HistoricoVendedor";
 import RelatoriosVendedor from "../pages/vendedor/RelatoriosVendedor";
 import ConfiguracoesVendedor from "../pages/vendedor/ConfiguracoesVendedor";
@@ -86,6 +88,8 @@ export default function AppRoutes() {
       <Route path="/dashboard/vendedor/">
         <Route path="" element={<DashboardVendedor />} />
         <Route path="imoveis" element={<MeusImoveisVendedor />} />
+        <Route path="clientes" element={<InteressadosVendedor />} />
+        <Route path="visitas" element={<VisitasVendedor />} />
         <Route path="historico" element={<HistoricoVendedor />} />
         <Route path="relatorios" element={<RelatoriosVendedor />} />
         <Route path="configuracoes" element={<ConfiguracoesVendedor />} />
