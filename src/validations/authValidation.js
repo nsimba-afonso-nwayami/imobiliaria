@@ -23,7 +23,11 @@ export const registerSchema = yup.object({
   password: yup
     .string()
     .required("A senha é obrigatória")
-    .min(6, "A senha deve ter pelo menos 6 caracteres"),
+    .min(8, "A senha deve ter pelo menos 8 caracteres")
+    .matches(
+        /^(?=.*[A-Za-z])(?=.*\d).+$/,
+        "A password deve ter letras e números"
+    ),
 
   password_confirmation: yup
     .string()
