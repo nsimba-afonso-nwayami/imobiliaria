@@ -114,7 +114,7 @@ export default function ImoveisComprador() {
                             
                             <button 
                             onClick={() => { setSelected(imovel); setOpenModal(true); }}
-                            className="cursor-pointer h-12 px-6 bg-neutral-950 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-sky-700 transition-all duration-500 active:scale-95 shadow-lg shadow-black/10"
+                            className="cursor-pointer h-12 px-6 bg-blue-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-blue-800 transition-all duration-500 active:scale-95 shadow-lg shadow-black/10"
                             >
                             Ver Ativo
                             </button>
