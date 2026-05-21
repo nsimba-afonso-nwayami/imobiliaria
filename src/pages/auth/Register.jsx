@@ -89,7 +89,7 @@ export default function Register() {
                 <select className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50 cursor-pointer">
                   <option>Selecionar perfil</option>
                   <option>Comprador</option>
-                  <option>Investidor</option>
+                  <option>Vendedor</option>
                 </select>
               </div>
 
