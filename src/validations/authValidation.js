@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export const registerSchema = yup.object({
-  name: yup
+  username: yup
     .string()
     .required("O nome é obrigatório")
     .min(3, "O nome deve ter pelo menos 3 caracteres"),
@@ -29,7 +29,7 @@ export const registerSchema = yup.object({
         "A password deve ter letras e números"
     ),
 
-  password_confirmation: yup
+  password_confirm: yup
     .string()
     .required("Confirme a senha")
     .oneOf([yup.ref("password")], "As senhas não coincidem"),
