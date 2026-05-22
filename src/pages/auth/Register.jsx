@@ -140,6 +140,25 @@ export default function Register() {
                 )}
               </div>
 
+              {/* TELEFONE */}
+              <div className="space-y-2">
+                <label className="text-sm font-black text-blue-950 ml-1 uppercase tracking-widest">
+                  Telefone
+                </label>
+
+                <input
+                  type="tel"
+                  placeholder="+244 9XX XXX XXX"
+                  {...register("phone")}
+                  className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs font-semibold">
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+
               {/* TIPO */}
               <div className="space-y-2">
                 <label className="text-sm font-black text-blue-950 ml-1 uppercase tracking-widest">
