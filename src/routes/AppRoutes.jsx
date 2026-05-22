@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import SiteLayout from "../layouts/SiteLayout";
 
 // 
-//import PrivateRoute from "../routes/PrivateRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 //Site
 import Home from "../pages/site/Home";
@@ -18,6 +18,7 @@ import Contato from "../pages/site/Contato";
 import Privacidade from "../pages/site/Privacidade";
 import Termos from "../pages/site/Termos";
 import NotFound from "../pages/site/NotFound";
+import Unauthorized from "../pages/site/Unauthorized";
 
 //Autenticação
 import Login from "../pages/auth/Login";
@@ -71,31 +72,37 @@ export default function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/403" element={<Unauthorized />} />
 
       {/*Dashboard comprador*/}
-      <Route path="/dashboard/comprador/">
-        <Route path="" element={<DashboardComprador />} />
-        <Route path="imoveis" element={<ImoveisComprador />} />
-        <Route path="visitas" element={<MinhasVisitas />} />
-        <Route path="historico" element={<HistoricoComprador />} />
-        <Route path="configuracoes" element={<ConfiguracoesComprador />} />
-        <Route path="mensagens" element={<MensagensComprador />} />
-        <Route path="notificacoes" element={<NotificacoesComprador />} />
-        <Route path="*" element={<NotFoundComprador />} />
+      <Route element={<ProtectedRoute allowedRoles={["client"]} />}>
+        <Route path="/dashboard/comprador/">
+          <Route path="" element={<DashboardComprador />} />
+          <Route path="imoveis" element={<ImoveisComprador />} />
+          <Route path="visitas" element={<MinhasVisitas />} />
+          <Route path="historico" element={<HistoricoComprador />} />
+          <Route path="configuracoes" element={<ConfiguracoesComprador />} />
+          <Route path="mensagens" element={<MensagensComprador />} />
+          <Route path="notificacoes" element={<NotificacoesComprador />} />
+          <Route path="*" element={<NotFoundComprador />} />
+        </Route>
       </Route>
+      
 
       {/*Dashboard vendedor*/}
-      <Route path="/dashboard/vendedor/">
-        <Route path="" element={<DashboardVendedor />} />
-        <Route path="imoveis" element={<MeusImoveisVendedor />} />
-        <Route path="clientes" element={<InteressadosVendedor />} />
-        <Route path="visitas" element={<VisitasVendedor />} />
-        <Route path="historico" element={<HistoricoVendedor />} />
-        <Route path="relatorios" element={<RelatoriosVendedor />} />
-        <Route path="configuracoes" element={<ConfiguracoesVendedor />} />
-        <Route path="mensagens" element={<MensagensVendedor />} />
-        <Route path="notificacoes" element={<NotificacoesVendedor />} />
-        <Route path="*" element={<NotFoundVendedor />} />
+      <Route element={<ProtectedRoute allowedRoles={["vendor"]} />}>
+        <Route path="/dashboard/vendedor/">
+          <Route path="" element={<DashboardVendedor />} />
+          <Route path="imoveis" element={<MeusImoveisVendedor />} />
+          <Route path="clientes" element={<InteressadosVendedor />} />
+          <Route path="visitas" element={<VisitasVendedor />} />
+          <Route path="historico" element={<HistoricoVendedor />} />
+          <Route path="relatorios" element={<RelatoriosVendedor />} />
+          <Route path="configuracoes" element={<ConfiguracoesVendedor />} />
+          <Route path="mensagens" element={<MensagensVendedor />} />
+          <Route path="notificacoes" element={<NotificacoesVendedor />} />
+          <Route path="*" element={<NotFoundVendedor />} />
+        </Route>
       </Route>
     </Routes>
   );
