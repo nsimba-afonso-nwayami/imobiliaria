@@ -24,8 +24,7 @@ export default function Register() {
         const payload = {
           username: data.username,
           email: data.email,
-          phone: data.phone,
-          profile: data.profile,
+          user_type: data.user_type,
           password: data.password,
           password_confirm: data.password_confirm,
         };
@@ -141,39 +140,20 @@ export default function Register() {
                 )}
               </div>
 
-              {/* TELEFONE */}
-              <div className="space-y-2">
-                <label className="text-sm font-black text-blue-950 ml-1 uppercase tracking-widest">
-                  Telefone
-                </label>
-
-                <input
-                  type="tel"
-                  placeholder="+244 9XX XXX XXX"
-                  {...register("phone")}
-                  className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
-                />
-                {errors.phone && (
-                  <p className="text-red-500 text-xs font-semibold">
-                    {errors.phone.message}
-                  </p>
-                )}
-              </div>
-
               {/* TIPO */}
               <div className="space-y-2">
                 <label className="text-sm font-black text-blue-950 ml-1 uppercase tracking-widest">
                   Perfil
                 </label>
 
-                <select {...register("profile")} className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50 cursor-pointer">
+                <select {...register("user_type")} className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50 cursor-pointer">
                   <option>Selecionar perfil</option>
-                  <option value="Comprador">Comprador</option>
-                  <option value="Vendedor">Vendedor</option>
+                  <option value="client">Cliente</option>
+                  <option value="vendor">Vendedor</option>
                 </select>
-                {errors.profile && (
+                {errors.user_type && (
                   <p className="text-red-500 text-xs font-semibold">
-                    {errors.profile.message}
+                    {errors.user_type.message}
                   </p>
                 )}
               </div>
