@@ -1,9 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
+import { loginSchema } from "../../validations/loginValidation";
+import { loginUser } from "../../services/authService";
 
 export default function Login() {
+  const navigate = useNavigate();
 
   const btnPrimary =
     "w-full bg-blue-950 text-white py-4 rounded-xl font-black uppercase tracking-[0.2em] text-xs shadow-lg shadow-blue-950/20 hover:bg-sky-700 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2";
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const onSubmit = async (data) => {
+    try {
+      console.log("DADOS LOGIN:");
+      console.log(data);
+
+      const response = await loginUser(data);
+
+      console.log("LOGIN SUCESSO:");
+      console.log(response);
+
+      toast.success("Login realizado com sucesso!");
+
+      // REDIRECIONAMENTO
+      if (response.user?.user_type === "vendor") {
+        navigate("/dashboard/vendedor/");
+      } else if (response.user?.user_type === "admin") {
+        navigate("/dashboard/admin/");
+      } else {
+        navigate("/dashboard/comprador/");
+      }
+
+    } catch (error) {
+      console.error(error);
+
+      if (error.response?.data) {
+        const errors = error.response.data;
+
+        Object.keys(errors).forEach((key) => {
+          if (Array.isArray(errors[key])) {
+            toast.error(errors[key][0]);
+          } else {
+            toast.error(errors[key]);
+          }
+        });
+      } else {
+        toast.error("Email ou senha inválidos");
+      }
+    }
+  };
 
   return (
     <>
@@ -37,7 +91,7 @@ export default function Login() {
           </div>
 
           {/* FORM */}
-          <form className="mt-10 space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-10 space-y-5">
 
             {/* EMAIL */}
             <div className="space-y-2">
@@ -48,8 +102,14 @@ export default function Login() {
               <input
                 type="email"
                 placeholder="exemplo@email.com"
+                {...register("email")}
                 className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
               />
+              {errors.email && (
+                <p className="text-red-500 text-xs font-semibold">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* SENHA */}
@@ -70,15 +130,21 @@ export default function Login() {
               <input
                 type="password"
                 placeholder="••••••••"
+                {...register("password")}
                 className="w-full px-4 py-3 border border-neutral-200 rounded-xl outline-none transition-all focus:border-sky-700 bg-neutral-50"
               />
+              {errors.password && (
+                <p className="text-red-500 text-xs font-semibold">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* BOTÃO */}
             <div className="pt-2">
-              <button type="button" className={btnPrimary}>
+              <button type="submit" disabled={isSubmitting} className={btnPrimary}>
                 <i className="fa-solid fa-right-to-bracket"></i>
-                Entrar
+                {isSubmitting ? "Entrando..." : "Entrar"}
               </button>
             </div>
           </form>
