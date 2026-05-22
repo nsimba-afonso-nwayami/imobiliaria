@@ -24,6 +24,7 @@ export default function Register() {
         const payload = {
           username: data.username,
           email: data.email,
+          phone: data.phone,
           user_type: data.user_type,
           password: data.password,
           password_confirm: data.password_confirm,
