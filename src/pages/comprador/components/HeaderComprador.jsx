@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function HeaderComprador({ sidebarOpen, setSidebarOpen, title }) {
+  const { user } = useAuth();
 
   const actionBtnStyle =
     "relative w-10 h-10 cursor-pointer flex items-center justify-center rounded-xl bg-blue-950 hover:bg-sky-700 text-white transition-all duration-300 shadow-sm group";
@@ -58,10 +60,10 @@ export default function HeaderComprador({ sidebarOpen, setSidebarOpen, title }) 
 
           <div className="text-right hidden lg:block">
             <p className="text-sm text-white font-bold leading-none">
-              Comprador
+              {user?.username || "Utilizador"}
             </p>
             <p className="text-[10px] text-sky-200/60 uppercase font-black tracking-widest mt-1">
-              Área privada
+              {user?.user_type || "Comprador"}
             </p>
           </div>
 
