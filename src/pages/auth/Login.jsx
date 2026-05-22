@@ -4,9 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { loginSchema } from "../../validations/loginValidation";
 import { loginUser } from "../../services/authService";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const btnPrimary =
     "w-full bg-blue-950 text-white py-4 rounded-xl font-black uppercase tracking-[0.2em] text-xs shadow-lg shadow-blue-950/20 hover:bg-sky-700 transition-all duration-300 active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60";
@@ -24,7 +26,10 @@ export default function Login() {
       console.log("DADOS LOGIN:");
       console.log(data);
 
+      //const response = await loginUser(data);
       const response = await loginUser(data);
+
+      login(response.user);
 
       console.log("LOGIN SUCESSO:");
       console.log(response);
