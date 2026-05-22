@@ -11,11 +11,6 @@ export const registerSchema = yup.object({
     .required("O email é obrigatório")
     .email("Digite um email válido"),
 
-  phone: yup
-    .string()
-    .required("O telefone é obrigatório")
-    .min(9, "Telefone inválido"),
-
   user_type: yup
     .string()
     .required("Selecione um perfil"),
