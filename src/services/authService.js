@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-// REGISTRO
+// REGISTER
 export const registerUser = async (data) => {
   const response = await api.post("auth/register/", data);
   return response.data;
@@ -10,20 +10,27 @@ export const registerUser = async (data) => {
 export const loginUser = async (data) => {
   const response = await api.post("auth/login/", data);
 
-  if (response.data?.access) {
-    localStorage.setItem("token", response.data.access);
-  }
+  // TOKENS
+  localStorage.setItem("access", response.data.access);
+  localStorage.setItem("refresh", response.data.refresh);
+
+  // USER
+  localStorage.setItem("user", JSON.stringify(response.data.user));
 
   return response.data;
 };
 
 // LOGOUT
 export const logoutUser = async () => {
-  const response = await api.post("auth/logout/");
+  try {
+    await api.post("auth/logout/");
+  } catch (error) {
+    console.log(error);
+  }
 
-  localStorage.removeItem("token");
-
-  return response.data;
+  localStorage.removeItem("access");
+  localStorage.removeItem("refresh");
+  localStorage.removeItem("user");
 };
 
 // PROFILE
