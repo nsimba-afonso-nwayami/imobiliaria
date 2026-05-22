@@ -1,7 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const isActive = (path) => location.pathname === path;
 
@@ -13,6 +16,16 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
 
   const activeStyle =
     "bg-sky-700 text-white shadow-lg shadow-blue-950/20";
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -115,7 +128,7 @@ export default function SidebarComprador({ sidebarOpen, setSidebarOpen }) {
 
         {/* LOGOUT */}
         <div className="pt-6 border-t border-blue-900/50">
-          <button className="flex items-center gap-3 cursor-pointer w-full px-4 py-3 rounded-xl text-sky-200/60 hover:text-white hover:bg-blue-800/40 transition-all font-black text-sm group">
+          <button onClick={handleLogout} className="flex items-center gap-3 cursor-pointer w-full px-4 py-3 rounded-xl text-sky-200/60 hover:text-white hover:bg-blue-800/40 transition-all font-black text-sm group">
             <i className="fas fa-right-from-bracket group-hover:translate-x-1 transition-transform"></i>
             Sair da conta
           </button>

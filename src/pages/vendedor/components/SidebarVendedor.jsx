@@ -1,7 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const isActive = (path) => location.pathname === path;
 
@@ -16,6 +19,16 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
 
   const iconStyle = (path) =>
     isActive(path) ? "text-white" : "text-sky-400";
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -191,6 +204,7 @@ export default function SidebarVendedor({ sidebarOpen, setSidebarOpen }) {
         {/* LOGOUT */}
         <div className="pt-6 border-t border-blue-900/50">
           <button
+            onClick={handleLogout}
             className="
               flex items-center gap-3
               cursor-pointer w-full px-4 py-3
