@@ -16,7 +16,7 @@ export const registerSchema = yup.object({
     .required("O telefone é obrigatório")
     .min(9, "Telefone inválido"),
 
-  profile: yup
+  user_type: yup
     .string()
     .required("Selecione um perfil"),
 
