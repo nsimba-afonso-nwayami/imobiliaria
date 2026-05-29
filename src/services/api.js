@@ -14,9 +14,13 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access");
 
+  console.log("TOKEN ENVIADO:", token);
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  console.log("HEADERS FINAL:", config.headers);
 
   return config;
 });
