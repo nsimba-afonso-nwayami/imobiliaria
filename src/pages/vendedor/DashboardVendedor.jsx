@@ -2,12 +2,129 @@ import { useState } from "react";
 import VendedorLayout from "./components/VendedorLayout";
 import Modal from "./components/Modal";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
+
+import { propertySchema } from "../../validations/propertyValidation";
+
+import { createProperty } from "../../services/propertyService";
 
 export default function DashboardVendedor() {
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false); // Estado para o modal de novo anúncio
   const [openSponsorModal, setOpenSponsorModal] = useState(false); // Estado para o modal de patrocínio
   const [selectedImovel, setSelectedImovel] = useState(null);
+  const [previewImages, setPreviewImages] = useState([]);
+  const [videoName, setVideoName] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(propertySchema),
+  });
+
+  const handleImagesChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    setValue("images", files, {
+      shouldValidate: true,
+    });
+
+    const previews = files.map((file) =>
+      URL.createObjectURL(file)
+    );
+
+    setPreviewImages(previews);
+  };
+
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+
+    setValue("video", file, {
+      shouldValidate: true,
+    });
+
+    if (file) {
+      setVideoName(file.name);
+    } else {
+      setVideoName("");
+    }
+  };
+
+  const onSubmitProperty = async (data) => {
+    try {
+      const formData = new FormData();
+
+      // CAMPOS
+      formData.append("title", data.title);
+      formData.append("property_type", data.property_type);
+      formData.append("purpose", data.purpose);
+      formData.append("province", data.province);
+      formData.append("city", data.city);
+      formData.append("district", data.district);
+      formData.append("address", data.address);
+      formData.append("price", data.price);
+      formData.append("bedrooms", data.bedrooms || "");
+      formData.append("bathrooms", data.bathrooms || "");
+      formData.append("garages", data.garages || "");
+      formData.append("furnished", data.furnished);
+      formData.append("area", data.area);
+      formData.append("description", data.description);
+      
+
+      // IMAGENS
+      data.images.forEach((image) => {
+        formData.append("images[]", image);
+      });
+
+      // VÍDEO
+      if (data.video) {
+        formData.append("video", data.video);
+      }
+
+      console.log("DADOS ENVIADOS:");
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1]);
+      }
+
+      const response = await createProperty(formData);
+
+      console.log("RESPOSTA SUCESSO:");
+      console.log(response);
+
+      toast.success("Imóvel cadastrado com sucesso!");
+
+      reset();
+
+      setPreviewImages([]);
+      setVideoName("");
+
+      setOpenAddModal(false);
+
+    } catch (error) {
+      console.log(error);
+
+      if (error.response?.data) {
+        const errors = error.response.data;
+
+        Object.keys(errors).forEach((key) => {
+          if (Array.isArray(errors[key])) {
+            toast.error(errors[key][0]);
+          } else {
+            toast.error(errors[key]);
+          }
+        });
+      } else {
+        toast.error("Erro ao cadastrar imóvel");
+      }
+    }
+  };
 
   const stats = [
     {
@@ -267,102 +384,421 @@ export default function DashboardVendedor() {
           title="Adicionar Propriedade"
           icon="fas fa-bullhorn"
         >
-          <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
+          <form
+            onSubmit={handleSubmit(onSubmitProperty)}
+            className="space-y-6 animate-in fade-in zoom-in-95 duration-500"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* Nome do Anúncio */}
+
+              {/* TÍTULO */}
               <div className="col-span-full">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
                   Título do Anúncio
                 </label>
+
                 <input
                   type="text"
                   placeholder="Ex: Vivenda V3 no Projeto Nova Vida"
+                  {...register("title")}
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase"
                 />
+
+                {errors.title && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.title.message}
+                  </p>
+                )}
               </div>
 
-              {/* Tipo de Imóvel */}
+              {/* TIPO */}
               <div>
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
                   Tipo de Imóvel
                 </label>
-                <select className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer">
-                  <option>VIVENDA</option>
-                  <option>APARTAMENTO</option>
-                  <option>TERRENO</option>
-                  <option>LOJA / ESCRITÓRIO</option>
+
+                <select
+                  {...register("property_type")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
+                >
+                  <option value="">Selecionar</option>
+                  <option value="VIVENDA">Vivenda</option>
+                  <option value="APARTAMENTO">Apartamento</option>
+                  <option value="TERRENO">Terreno</option>
+                  <option value="LOJA">Loja</option>
+                  <option value="ESCRITORIO">Escritório</option>
                 </select>
+
+                {errors.property_type && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.property_type.message}
+                  </p>
+                )}
               </div>
 
-              {/* Localização */}
+              {/* FINALIDADE */}
               <div>
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Localização (Bairro/Zona)
+                  Finalidade
                 </label>
+
+                <select
+                  {...register("purpose")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
+                >
+                  <option value="">Selecionar</option>
+                  <option value="VENDA">Venda</option>
+                  <option value="ARRENDAMENTO">Arrendamento</option>
+                </select>
+
+                {errors.purpose && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.purpose.message}
+                  </p>
+                )}
+              </div>
+
+              {/* PROVÍNCIA */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Província
+                </label>
+
+                <select
+                  {...register("province")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
+                >
+                  <option value="">Selecionar</option>
+
+                  <option value="BENGO">Bengo</option>
+                  <option value="BENGUELA">Benguela</option>
+                  <option value="BIE">Bié</option>
+                  <option value="CABINDA">Cabinda</option>
+                  <option value="CUANDO">Cuando</option>
+                  <option value="CUBANGO">Cubango</option>
+                  <option value="CUANZA NORTE">Cuanza Norte</option>
+                  <option value="CUANZA SUL">Cuanza Sul</option>
+                  <option value="CUNENE">Cunene</option>
+                  <option value="HUAMBO">Huambo</option>
+                  <option value="HUILA">Huíla</option>
+                  <option value="ICOLO E BENGO">Icolo e Bengo</option>
+                  <option value="LUANDA">Luanda</option>
+                  <option value="LUNDA NORTE">Lunda Norte</option>
+                  <option value="LUNDA SUL">Lunda Sul</option>
+                  <option value="MALANJE">Malanje</option>
+                  <option value="MOXICO">Moxico</option>
+                  <option value="MOXICO LESTE">Moxico Leste</option>
+                  <option value="NAMIBE">Namibe</option>
+                  <option value="UIJE">Uíge</option>
+                  <option value="ZAIRE">Zaire</option>
+                </select>
+
+                {errors.province && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.province.message}
+                  </p>
+                )}
+              </div>
+
+              {/* CIDADE */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Cidade
+                </label>
+
                 <input
                   type="text"
-                  placeholder="Ex: Talatona, Luanda"
+                  placeholder="Ex: Talatona"
+                  {...register("city")}
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase"
                 />
+
+                {errors.city && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.city.message}
+                  </p>
+                )}
               </div>
 
-              {/* Preço */}
+              {/* BAIRRO */}
               <div>
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Preço de Venda (Kz)
+                  Bairro / Distrito
                 </label>
+
                 <input
                   type="text"
-                  placeholder="Valor em Kwanzas"
-                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
+                  placeholder="Ex: Benfica"
+                  {...register("district")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase"
                 />
+
+                {errors.district && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.district.message}
+                  </p>
+                )}
               </div>
 
-              {/* Quartos (se aplicável) */}
+              {/* ENDEREÇO */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Endereço
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Rua principal, casa nº 12"
+                  {...register("address")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase"
+                />
+
+                {errors.address && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.address.message}
+                  </p>
+                )}
+              </div>
+
+              {/* PREÇO */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Preço (Kz)
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="25000000"
+                  {...register("price")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
+                />
+
+                {errors.price && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.price.message}
+                  </p>
+                )}
+              </div>
+
+              {/* ÁREA */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Área (m²)
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="120"
+                  {...register("area")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
+                />
+
+                {errors.area && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.area.message}
+                  </p>
+                )}
+              </div>
+
+              {/* QUARTOS */}
               <div>
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
                   Quartos
                 </label>
+
                 <input
                   type="number"
-                  placeholder="0"
+                  placeholder="3"
+                  {...register("bedrooms")}
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
                 />
+                {errors.bedrooms && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.bedrooms.message}
+                  </p>
+                )}
               </div>
 
-              {/* Descrição */}
+              {/* BANHEIROS */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Banheiros
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="2"
+                  {...register("bathrooms")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
+                />
+                {errors.bathrooms && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.bathrooms.message}
+                  </p>
+                )}
+              </div>
+
+              {/* GARAGEM */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Garagem
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="2"
+                  {...register("garages")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
+                />
+                {errors.garages && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.garages.message}
+                  </p>
+                )}
+              </div>
+
+              {/* MOBILADO */}
+              <div>
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                  Mobilado
+                </label>
+
+                <select
+                  {...register("furnished")}
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
+                >
+                  <option value="">Selecionar</option>
+                  <option value="SIM">Sim</option>
+                  <option value="NAO">Não</option>
+                </select>
+                {errors.furnished && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.furnished.message}
+                  </p>
+                )}
+              </div>
+
+              {/* DESCRIÇÃO */}
               <div className="col-span-full">
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Descrição Detalhada
+                  Descrição
                 </label>
+
                 <textarea
-                  placeholder="Descreva o estado do imóvel, pontos de referência, etc..."
-                  className="w-full h-32 bg-slate-100 border border-slate-300 rounded-2xl p-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase resize-none"
-                ></textarea>
+                  rows={6}
+                  placeholder="Descreva o imóvel..."
+                  {...register("description")}
+                  className="w-full bg-slate-100 border border-slate-300 rounded-2xl p-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all uppercase resize-none"
+                />
+
+                {errors.description && (
+                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                    {errors.description.message}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* Upload de Fotos Simulado */}
-            <div className="border-2 border-dashed border-slate-300 rounded-3xl p-8 flex flex-col items-center justify-center bg-slate-50 group hover:border-sky-700 transition-all cursor-pointer">
-              <i className="fas fa-camera text-2xl text-slate-400 group-hover:text-sky-700 mb-2"></i>
-              <p className="text-[9px] font-black text-slate-500 uppercase">
-                Clique para carregar fotos do imóvel
-              </p>
+            {/* IMAGENS */}
+            <div className="space-y-4">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                Fotos do Imóvel
+              </label>
+
+              <label className="border-2 border-dashed border-slate-300 rounded-3xl p-8 flex flex-col items-center justify-center bg-slate-50 group hover:border-sky-700 transition-all cursor-pointer">
+                <i className="fas fa-camera text-2xl text-slate-400 group-hover:text-sky-700 mb-2"></i>
+
+                <p className="text-[9px] font-black text-slate-500 uppercase">
+                  Clique para carregar fotos
+                </p>
+
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImagesChange}
+                  className="hidden"
+                />
+              </label>
+
+              {errors.images && (
+                <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                  {errors.images.message}
+                </p>
+              )}
+
+              {previewImages.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {previewImages.map((image, index) => (
+                    <div
+                      key={index}
+                      className="h-28 rounded-2xl overflow-hidden border border-slate-300"
+                    >
+                      <img
+                        src={image}
+                        alt="preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Botão de Finalizar */}
+            {/* VÍDEO */}
+            <div className="space-y-4">
+              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                Vídeo do Imóvel
+              </label>
+
+              <label className="border-2 border-dashed border-slate-300 rounded-3xl p-8 flex flex-col items-center justify-center bg-slate-50 group hover:border-sky-700 transition-all cursor-pointer">
+                <i className="fas fa-video text-2xl text-slate-400 group-hover:text-sky-700 mb-2"></i>
+
+                <p className="text-[9px] font-black text-slate-500 uppercase">
+                  Clique para carregar vídeo
+                </p>
+
+                {videoName && (
+                  <span className="mt-3 text-[10px] font-black text-sky-700 uppercase">
+                    {videoName}
+                  </span>
+                )}
+
+                <input
+                  type="file"
+                  accept="video/*"
+                  onChange={handleVideoChange}
+                  className="hidden"
+                />
+              </label>
+
+              {errors.video && (
+                <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                  {errors.video.message}
+                </p>
+              )}
+            </div>
+
+            {/* BOTÕES */}
             <div className="pt-4">
-              <button className="w-full h-16 bg-sky-700 text-slate-50 font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl hover:bg-sky-600 transition-all shadow-lg shadow-sky-700/20 cursor-pointer">
-                Publicar Anúncio Agora
-              </button>
               <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full h-16 bg-sky-700 text-slate-50 font-black uppercase tracking-[0.2em] text-[10px] rounded-2xl hover:bg-sky-600 transition-all shadow-lg shadow-sky-700/20 cursor-pointer disabled:opacity-50"
+              >
+                {isSubmitting
+                  ? "PUBLICANDO ANÚNCIO..."
+                  : "PUBLICAR ANÚNCIO AGORA"}
+              </button>
+
+              <button
+                type="button"
                 onClick={() => setOpenAddModal(false)}
                 className="w-full h-10 mt-2 text-slate-400 font-black uppercase text-[8px] hover:text-blue-950 transition-all cursor-pointer"
               >
                 Cancelar
               </button>
             </div>
-          </div>
+          </form>
         </Modal>
 
         {/* MODAL 3: PATROCINAR PROPRIEDADE */}
