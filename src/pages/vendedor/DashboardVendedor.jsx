@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
-
 import { propertySchema } from "../../validations/propertyValidation";
-
 import { createProperty } from "../../services/propertyService";
 
 export default function DashboardVendedor() {
@@ -421,11 +419,12 @@ export default function DashboardVendedor() {
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
                 >
                   <option value="">Selecionar</option>
-                  <option value="VIVENDA">Vivenda</option>
-                  <option value="APARTAMENTO">Apartamento</option>
-                  <option value="TERRENO">Terreno</option>
-                  <option value="LOJA">Loja</option>
-                  <option value="ESCRITORIO">Escritório</option>
+                  <option value="luxury_house">Casa de Luxo</option>
+                  <option value="land">Terreno</option>
+                  <option value="villa">Vivenda</option>
+                  <option value="apartment">Apartamento</option>
+                  <option value="small_house">Casa Pequena</option>
+                  <option value="room">Quarto em Bairro</option>
                 </select>
 
                 {errors.property_type && (
@@ -446,8 +445,9 @@ export default function DashboardVendedor() {
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
                 >
                   <option value="">Selecionar</option>
-                  <option value="VENDA">Venda</option>
-                  <option value="ARRENDAMENTO">Arrendamento</option>
+                  <option value="sale">Venda</option>
+                  <option value="rent">Arrendamento</option>
+                  <option value="short_term_rent">Arrendamento de Curta Duração</option>
                 </select>
 
                 {errors.purpose && (
