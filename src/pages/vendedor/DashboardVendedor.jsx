@@ -55,23 +55,24 @@ export default function DashboardVendedor() {
   };
 
   const onSubmitProperty = async (data) => {
+    toast.loading("Cadastrando imóvel...");
     try {
       const formData = new FormData();
 
       // CAMPOS
       formData.append("title", data.title);
       formData.append("property_type", data.property_type);
-      formData.append("purpose", data.purpose);
+      formData.append("transaction_type", data.purpose);
       formData.append("province", data.province);
-      formData.append("city", data.city);
-      formData.append("district", data.district);
+      formData.append("municipality", data.city);
+      formData.append("neighborhood", data.district);
       formData.append("address", data.address);
       formData.append("price", data.price);
       formData.append("bedrooms", data.bedrooms || "");
       formData.append("bathrooms", data.bathrooms || "");
       formData.append("garages", data.garages || "");
       formData.append("furnished", data.furnished);
-      formData.append("area", data.area);
+      formData.append("area_m2", data.area);
       formData.append("description", data.description);
       
 
@@ -106,21 +107,22 @@ export default function DashboardVendedor() {
       setOpenAddModal(false);
 
     } catch (error) {
-      console.log(error);
+      console.log("ERRO COMPLETO:");
+      console.log(error.response?.data);
 
-      if (error.response?.data) {
+       return;
+
+      /*if (error.response?.data) {
         const errors = error.response.data;
 
-        Object.keys(errors).forEach((key) => {
-          if (Array.isArray(errors[key])) {
-            toast.error(errors[key][0]);
-          } else {
-            toast.error(errors[key]);
+        Object.entries(errors.details || {}).forEach(([field, messages]) => {
+          if (Array.isArray(messages)) {
+            toast.error(`${field}: ${messages[0]}`);
           }
         });
       } else {
         toast.error("Erro ao cadastrar imóvel");
-      }
+      }*/
     }
   };
 
