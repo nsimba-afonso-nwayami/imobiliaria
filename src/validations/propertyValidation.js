@@ -54,32 +54,53 @@ export const propertySchema = yup.object({
   bedrooms: yup
     .number()
     .transform((value, originalValue) =>
-      originalValue === "" ? null : value
+      originalValue === "" ? undefined : value
     )
-    .nullable()
-    .typeError("Número de quartos inválido")
-    .min(0, "Número inválido")
-    .max(100, "Número muito alto"),
+    .when("property_type", {
+      is: (value) =>
+        ["house", "apartment", "office"].includes(value),
+      then: (schema) =>
+        schema
+          .required("Número de quartos é obrigatório")
+          .typeError("Número de quartos inválido")
+          .min(0)
+          .max(100),
+      otherwise: (schema) => schema.notRequired().nullable(),
+    }),
 
   bathrooms: yup
     .number()
     .transform((value, originalValue) =>
-      originalValue === "" ? null : value
+      originalValue === "" ? undefined : value
     )
-    .nullable()
-    .typeError("Número de banheiros inválido")
-    .min(0, "Número inválido")
-    .max(100, "Número muito alto"),
+    .when("property_type", {
+      is: (value) =>
+        ["house", "apartment", "office"].includes(value),
+      then: (schema) =>
+        schema
+          .required("Número de banheiros é obrigatório")
+          .typeError("Número de banheiros inválido")
+          .min(0, "Número inválido")
+          .max(100, "Número muito alto"),
+      otherwise: (schema) => schema.notRequired().nullable(),
+    }),
 
   garages: yup
     .number()
     .transform((value, originalValue) =>
-      originalValue === "" ? null : value
+      originalValue === "" ? undefined : value
     )
-    .nullable()
-    .typeError("Número de garagens inválido")
-    .min(0, "Número inválido")
-    .max(100, "Número muito alto"),
+    .when("property_type", {
+      is: (value) =>
+        ["house", "office"].includes(value),
+      then: (schema) =>
+        schema
+          .required("Número de garagens é obrigatório")
+          .typeError("Número de garagens inválido")
+          .min(0, "Número inválido")
+          .max(100, "Número muito alto"),
+      otherwise: (schema) => schema.notRequired().nullable(),
+    }),
 
   area: yup
     .number()
@@ -89,7 +110,13 @@ export const propertySchema = yup.object({
 
   furnished: yup
     .string()
-    .required("Selecione se o imóvel é mobilado"),
+    .when("property_type", {
+      is: (value) =>
+        ["house", "apartment", "office"].includes(value),
+      then: (schema) =>
+        schema.required("Selecione se o imóvel é mobilado"),
+      otherwise: (schema) => schema.notRequired().nullable(),
+    }),
 
   description: yup
     .string()
