@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import VendedorLayout from "./components/VendedorLayout";
 import Modal from "./components/Modal";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import { propertySchema } from "../../validations/propertyValidation";
-import { createProperty } from "../../services/propertyService";
+import { createProperty, getMyProperties } from "../../services/propertyService";
 
 export default function DashboardVendedor() {
   const [openModal, setOpenModal] = useState(false);
@@ -15,6 +15,8 @@ export default function DashboardVendedor() {
   const [selectedImovel, setSelectedImovel] = useState(null);
   const [previewImages, setPreviewImages] = useState([]);
   const [videoName, setVideoName] = useState("");
+  const [myProperties, setMyProperties] = useState([]);
+  const [loadingProperties, setLoadingProperties] = useState(true);
 
   const {
     register,
@@ -155,10 +157,31 @@ export default function DashboardVendedor() {
     }
   };
 
+  useEffect(() => {
+    loadMyProperties();
+  }, []);
+
+  const loadMyProperties = async () => {
+    try {
+      const data = await getMyProperties();
+
+      console.log("MEUS IMÓVEIS:", data);
+
+      setMyProperties(data);
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao carregar imóveis");
+    } finally {
+      setLoadingProperties(false);
+    }
+  };
+
   const stats = [
     {
       label: "Meus Anúncios",
-      value: "02 Imóveis",
+      value: loadingProperties
+      ? "..."
+      : `${myProperties.length} Imóveis`,
       sub: "Ativos na plataforma",
       icon: "fa-house",
       trend: "neutral",
