@@ -14,7 +14,6 @@ export default function Home() {
       <title>Imobiliária</title>
 
       <Hero />
-      <BuscaPropriedade />
       <ImoveisDestaque />
       <Sobre />
       <NossosDiferenciais />
