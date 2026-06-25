@@ -1,10 +1,10 @@
 import axios from "axios";
-
-//const API_URL = "http://imobiliaria.hossidev.com/api/";
-const API_URL = "/api/";
+const API_URL = "https://imobiliaria.hossidev.com/api/";
+//const API_URL = "/api/";
 
 export const api = axios.create({
   baseURL: API_URL,
+  timeout: 15000, // Proteção contra travamentos: cancela a requisição após 15s se o cPanel não responder
   headers: {
     "Content-Type": "application/json",
   },
@@ -49,6 +49,12 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    // TRATAMENTO DE QUEDA DE CONEXÃO DO CPANEL (packetLen < 0 ou Timeout)
+    if (!error.response || error.code === 'ECONNABORTED') {
+      console.error("Erro crítico de rede ou quebra de pacote no servidor cPanel.");
+      return Promise.reject(error); // Destrava o estado "A processar..." imediatamente no componente
+    }
+
     // TOKEN EXPIRADO
     if (
       error.response?.status === 401 &&
@@ -69,7 +75,6 @@ api.interceptors.response.use(
       }
 
       originalRequest._retry = true;
-
       isRefreshing = true;
 
       try {
