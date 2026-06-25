@@ -20,17 +20,45 @@ export default function DashboardVendedor() {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: yupResolver(propertySchema),
   });
 
+  const propertyType = watch("property_type");
+
+  const showBedrooms = [
+    "house",
+    "apartment",
+    "office",
+  ].includes(propertyType);
+
+  const showBathrooms = [
+    "house",
+    "apartment",
+    "office",
+  ].includes(propertyType);
+
+  const showGarages = [
+    "house",
+    "office",
+  ].includes(propertyType);
+
+  const showFurnished = [
+    "house",
+    "apartment",
+    "office",
+  ].includes(propertyType);
+
+
   const handleImagesChange = (e) => {
     const files = Array.from(e.target.files);
 
     setValue("images", files, {
       shouldValidate: true,
+      shouldDirty: true,
     });
 
     const previews = files.map((file) =>
@@ -45,6 +73,7 @@ export default function DashboardVendedor() {
 
     setValue("video", file, {
       shouldValidate: true,
+      shouldDirty: true,
     });
 
     if (file) {
@@ -55,7 +84,8 @@ export default function DashboardVendedor() {
   };
 
   const onSubmitProperty = async (data) => {
-    toast.loading("Cadastrando imóvel...");
+    const loadingToast = toast.loading("Cadastrando imóvel...");
+
     try {
       const formData = new FormData();
 
@@ -71,14 +101,14 @@ export default function DashboardVendedor() {
       formData.append("bedrooms", data.bedrooms || "");
       formData.append("bathrooms", data.bathrooms || "");
       formData.append("garages", data.garages || "");
-      formData.append("furnished", data.furnished);
+      formData.append("furnished", data.furnished || "");
       formData.append("area_m2", data.area);
       formData.append("description", data.description);
       
 
       // IMAGENS
       data.images.forEach((image) => {
-        formData.append("images[]", image);
+        formData.append("images", image);
       });
 
       // VÍDEO
@@ -92,17 +122,22 @@ export default function DashboardVendedor() {
         console.log(pair[0], pair[1]);
       }
 
+      console.log("IMAGENS:", data.images);
+      console.log("TIPO:", data.property_type);
+
       const response = await createProperty(formData);
 
       console.log("RESPOSTA SUCESSO:");
       console.log(response);
 
+      toast.dismiss(loadingToast);
       toast.success("Imóvel cadastrado com sucesso!");
-
+      
       reset();
-
       setPreviewImages([]);
       setVideoName("");
+      setValue("images", []);
+      setValue("video", null);
 
       setOpenAddModal(false);
 
@@ -110,19 +145,13 @@ export default function DashboardVendedor() {
       console.log("ERRO COMPLETO:");
       console.log(error.response?.data);
 
-       return;
+       toast.dismiss(loadingToast);
 
-      /*if (error.response?.data) {
-        const errors = error.response.data;
-
-        Object.entries(errors.details || {}).forEach(([field, messages]) => {
-          if (Array.isArray(messages)) {
-            toast.error(`${field}: ${messages[0]}`);
-          }
-        });
+      if (error.response?.data?.message) {
+        toast.error(error.response.data.message);
       } else {
         toast.error("Erro ao cadastrar imóvel");
-      }*/
+      }
     }
   };
 
@@ -421,12 +450,10 @@ export default function DashboardVendedor() {
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
                 >
                   <option value="">Selecionar</option>
-                  <option value="luxury_house">Casa de Luxo</option>
-                  <option value="land">Terreno</option>
-                  <option value="villa">Vivenda</option>
+                  <option value="house">Vivenda / Casa</option>
                   <option value="apartment">Apartamento</option>
-                  <option value="small_house">Casa Pequena</option>
-                  <option value="room">Quarto em Bairro</option>
+                  <option value="land">Terreno</option>
+                  <option value="office">Escritório</option>
                 </select>
 
                 {errors.property_type && (
@@ -570,7 +597,7 @@ export default function DashboardVendedor() {
                 <input
                   type="number"
                   placeholder="25000000"
-                  {...register("price")}
+                  {...register("price", { valueAsNumber: true })}
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
                 />
 
@@ -590,7 +617,7 @@ export default function DashboardVendedor() {
                 <input
                   type="number"
                   placeholder="120"
-                  {...register("area")}
+                  {...register("area", { valueAsNumber: true })}
                   className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
                 />
 
@@ -602,63 +629,73 @@ export default function DashboardVendedor() {
               </div>
 
               {/* QUARTOS */}
-              <div>
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Quartos
-                </label>
+              {showBedrooms && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                    Quartos
+                  </label>
 
-                <input
-                  type="number"
-                  placeholder="3"
-                  {...register("bedrooms")}
-                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
-                />
-                {errors.bedrooms && (
-                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
-                    {errors.bedrooms.message}
-                  </p>
-                )}
-              </div>
+                  <input
+                    type="number"
+                    placeholder="3"
+                    {...register("bedrooms", { valueAsNumber: true })}
+                    className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5"
+                  />
+
+                  {errors.bedrooms && (
+                    <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                      {errors.bedrooms.message}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* BANHEIROS */}
-              <div>
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Banheiros
-                </label>
+              {showBathrooms && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                    Banheiros
+                  </label>
 
-                <input
-                  type="number"
-                  placeholder="2"
-                  {...register("bathrooms")}
-                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
-                />
-                {errors.bathrooms && (
-                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
-                    {errors.bathrooms.message}
-                  </p>
-                )}
-              </div>
+                  <input
+                    type="number"
+                    placeholder="2"
+                    {...register("bathrooms", { valueAsNumber: true })}
+                    className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5"
+                  />
 
-              {/* GARAGEM */}
-              <div>
-                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                  Garagem
-                </label>
+                  {errors.bathrooms && (
+                    <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                      {errors.bathrooms.message}
+                    </p>
+                  )}
+                </div>
+              )}
 
-                <input
-                  type="number"
-                  placeholder="2"
-                  {...register("garages")}
-                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all"
-                />
-                {errors.garages && (
-                  <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
-                    {errors.garages.message}
-                  </p>
-                )}
-              </div>
+              {/* GARAGENS */}
+              {showGarages && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                    Garagem
+                  </label>
 
-              {/* MOBILADO */}
+                  <input
+                    type="number"
+                    placeholder="2"
+                    {...register("garages", { valueAsNumber: true })}
+                    className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5"
+                  />
+
+                  {errors.garages && (
+                    <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
+                      {errors.garages.message}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* MOBILIADO */}
+              {showFurnished && (
               <div>
                 <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
                   Mobilado
@@ -666,18 +703,20 @@ export default function DashboardVendedor() {
 
                 <select
                   {...register("furnished")}
-                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5 text-[11px] font-black tracking-widest outline-none focus:border-sky-700 transition-all appearance-none cursor-pointer uppercase"
+                  className="w-full h-14 bg-slate-100 border border-slate-300 rounded-2xl px-5"
                 >
                   <option value="">Selecionar</option>
                   <option value="SIM">Sim</option>
                   <option value="NAO">Não</option>
                 </select>
+
                 {errors.furnished && (
                   <p className="text-red-500 text-[10px] mt-1 font-bold uppercase">
                     {errors.furnished.message}
                   </p>
                 )}
               </div>
+            )}
 
               {/* DESCRIÇÃO */}
               <div className="col-span-full">
@@ -767,6 +806,7 @@ export default function DashboardVendedor() {
 
                 <input
                   type="file"
+                  {...register("video")}
                   accept="video/*"
                   onChange={handleVideoChange}
                   className="hidden"
