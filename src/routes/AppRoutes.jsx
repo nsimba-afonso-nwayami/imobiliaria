@@ -56,7 +56,7 @@ export default function AppRoutes() {
       <Route element={<SiteLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/imoveis" element={<Imoveis />} />
-        <Route path="/imoveis/detalhes" element={<DetalhesImovel />} />
+        <Route path="/imoveis/:slug" element={<DetalhesImovel />} />
         <Route path="/imoveis/categoria" element={<Categoria />} />
         <Route path="/carrinho" element={<Carrinho />} />
         <Route path="/checkout" element={<Checkout />} />
