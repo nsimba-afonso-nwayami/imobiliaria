@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
@@ -7,23 +7,62 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-// Imagens (Estrutura mantida)
-import imovel1 from "../../assets/img/Imovel1.jpg";
-import imovel2 from "../../assets/img/Imovel2.jpg";
-import imovel3 from "../../assets/img/Imovel3.jpg";
-import imovel4 from "../../assets/img/Imovel4.jpg";
-import imovel5 from "../../assets/img/Imovel5.jpg";
-import imovel6 from "../../assets/img/Imovel6.jpg";
+import { getProperties } from "../../services/propertyService";
+
+import {
+  formatPrice,
+  propertyTypes,
+  transactionTypes,
+  getPropertyImage,
+  getPropertyLocation,
+  formatArea,
+  showBedrooms,
+} from "../../utils/propertyUtils";
 
 export default function OutrosImoveis() {
-  const [imoveis] = useState([
-    { id: 1, type: "Residencial", image: imovel1, title: "Penthouse de Luxo", price: "250M Kz", location: "Talatona, Luanda", bedrooms: 4, bathrooms: 5, area: "420m²" },
-    { id: 2, type: "Terreno", image: imovel2, title: "Terreno Residencial Premium", price: "85M Kz", location: "Benfica, Luanda", area: "1.200m²" },
-    { id: 3, type: "Terreno", image: imovel3, title: "Terreno Comercial Estratégico", price: "120M Kz", location: "Maianga, Luanda", area: "950m²" },
-    { id: 4, type: "Residencial", image: imovel4, title: "Moradia Executiva", price: "320M Kz", location: "Kilamba, Luanda", bedrooms: 6, bathrooms: 6, area: "550m²" },
-    { id: 5, type: "Residencial", image: imovel5, title: "Cobertura Exclusiva", price: "410M Kz", location: "Ilha de Luanda", bedrooms: 4, bathrooms: 5, area: "470m²" },
-    { id: 6, type: "Terreno", image: imovel6, title: "Terreno para Investimento", price: "150M Kz", location: "Viana, Luanda", area: "2.500m²" },
-  ]);
+  const [imoveis, setImoveis] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const carregarImoveis = async () => {
+      try {
+        const response = await getProperties();
+
+        const dados = response.results || response;
+
+        // ignora os 6 primeiros (já estão na secção destaque)
+        setImoveis(dados.slice(0));
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarImoveis();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center py-20">
+          <i className="fa-solid fa-spinner animate-spin text-5xl text-sky-700 mb-6"></i>
+
+          <h3 className="text-2xl font-black text-blue-950 mb-2">
+            Carregando imóveis...
+          </h3>
+
+          <p className="text-neutral-500">
+            Estamos a procurar mais imóveis para si.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!imoveis.length) {
+    return null;
+  }
 
   return (
     <section className="py-32 px-6 bg-white overflow-hidden">
@@ -74,18 +113,21 @@ export default function OutrosImoveis() {
                   {/* Image Container */}
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src={imovel.image}
+                      src={getPropertyImage(imovel)}
                       alt={imovel.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-white/90 backdrop-blur-md text-blue-950 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest border border-white/20">
-                        {imovel.type}
+                        {propertyTypes[imovel.property_type]}
+                      </span>
+                      <span className="bg-sky-700 text-white px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                        {transactionTypes[imovel.transaction_type]}
                       </span>
                     </div>
                     <div className="absolute bottom-0 left-0 w-full p-5 bg-linear-to-t from-blue-950/80 to-transparent">
                       <span className="text-white font-black text-lg tracking-tight">
-                        {imovel.price}
+                        {formatPrice(imovel.price)}
                       </span>
                     </div>
                   </div>
@@ -99,7 +141,7 @@ export default function OutrosImoveis() {
                     <div className="flex items-center gap-2 text-neutral-400 mb-6">
                       <i className="fa-solid fa-location-dot text-sky-700 text-[10px]"></i>
                       <span className="text-[10px] font-bold uppercase tracking-widest">
-                        {imovel.location}
+                        {getPropertyLocation(imovel)}
                       </span>
                     </div>
 
@@ -107,19 +149,25 @@ export default function OutrosImoveis() {
                     <div className="grid grid-cols-3 gap-1 pt-4 border-t border-neutral-50 mt-auto">
                       <div className="flex flex-col">
                         <span className="text-[8px] uppercase font-bold text-neutral-400">Área</span>
-                        <span className="text-[11px] font-black text-blue-950 truncate">{imovel.area}</span>
+                        <span className="text-[11px] font-black text-blue-950 truncate">{formatArea(imovel.area_m2)}</span>
                       </div>
                       
-                      {imovel.bedrooms && (
-                        <div className="flex flex-col border-l border-neutral-50 pl-2">
-                          <span className="text-[8px] uppercase font-bold text-neutral-400">Dorm.</span>
-                          <span className="text-[11px] font-black text-blue-950">{imovel.bedrooms}</span>
-                        </div>
-                      )}
+                      {showBedrooms(imovel.property_type) &&
+                        Number(imovel.bedrooms) > 0 && (
+                          <div className="flex flex-col border-l border-neutral-50 pl-2">
+                            <span className="text-[8px] uppercase font-bold text-neutral-400">
+                              Dorm.
+                            </span>
+
+                            <span className="text-[11px] font-black text-blue-950">
+                              {imovel.bedrooms}
+                            </span>
+                          </div>
+                        )}
 
                       <div className="flex flex-col border-l border-neutral-50 pl-2">
                         <span className="text-[8px] uppercase font-bold text-neutral-400">Info</span>
-                        <Link to="/imoveis/detalhes" className="text-sky-700 group/link">
+                        <Link to={`/imoveis/${imovel.id}`} className="text-sky-700 group/link">
                            <i className="fa-solid fa-plus text-[10px] group-hover/link:rotate-90 transition-transform"></i>
                         </Link>
                       </div>
