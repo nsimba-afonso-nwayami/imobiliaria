@@ -15,6 +15,7 @@ import {
   transactionTypes,
   getPropertyImage,
   getPropertyLocation,
+  createSlug,
   formatArea,
   showBedrooms,
 } from "../../utils/propertyUtils";
@@ -167,7 +168,7 @@ export default function OutrosImoveis() {
 
                       <div className="flex flex-col border-l border-neutral-50 pl-2">
                         <span className="text-[8px] uppercase font-bold text-neutral-400">Info</span>
-                        <Link to={`/imoveis/${imovel.id}`} className="text-sky-700 group/link">
+                        <Link to={`/imoveis/${createSlug(imovel.title)}`} className="text-sky-700 group/link">
                            <i className="fa-solid fa-plus text-[10px] group-hover/link:rotate-90 transition-transform"></i>
                         </Link>
                       </div>

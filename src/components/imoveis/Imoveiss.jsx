@@ -10,6 +10,7 @@ import {
   getPropertyImage,
   getPropertyLocation,
   provinces,
+  createSlug,
   formatArea,
   showBedrooms,
   showBathrooms,
@@ -333,7 +334,7 @@ export default function Imoveiss() {
                     </div>
 
                     <Link
-                      to={`/imoveis/${imovel.id}`}
+                      to={`/imoveis/${createSlug(imovel.title)}`}
                       className="mt-8 flex items-center justify-between group/link"
                     >
                       <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-950 group-hover/link:text-sky-700 transition-colors">
