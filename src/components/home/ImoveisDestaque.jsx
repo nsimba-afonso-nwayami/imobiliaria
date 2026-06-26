@@ -1,23 +1,80 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-// Imports das imagens (mantidos conforme sua estrutura)
-import imovel1 from "../../assets/img/Imovel1.jpg";
-import imovel2 from "../../assets/img/Imovel2.jpg";
-import imovel3 from "../../assets/img/Imovel3.jpg";
-import imovel4 from "../../assets/img/Imovel4.jpg";
-import imovel5 from "../../assets/img/Imovel5.jpg";
-import imovel6 from "../../assets/img/Imovel6.jpg";
+import { getProperties } from "../../services/propertyService";
+import {
+  formatPrice,
+  propertyTypes,
+  transactionTypes,
+  getPropertyImage,
+  getPropertyLocation,
+  formatArea,
+  showBedrooms,
+  showBathrooms,
+} from "../../utils/propertyUtils";
 
 export default function ImoveisDestaque() {
-  const [imoveis] = useState([
-    { id: 1, type: "Residencial", image: imovel1, title: "Penthouse de Luxo", price: "250M Kz", location: "Talatona, Luanda", bedrooms: 4, bathrooms: 5, area: "420m²" },
-    { id: 2, type: "Terreno", image: imovel2, title: "Terreno Residencial Premium", price: "85M Kz", location: "Benfica, Luanda", area: "1.200m²" },
-    { id: 3, type: "Terreno", image: imovel3, title: "Terreno Comercial Estratégico", price: "120M Kz", location: "Maianga, Luanda", area: "950m²" },
-    { id: 4, type: "Residencial", image: imovel4, title: "Moradia Executiva", price: "320M Kz", location: "Kilamba, Luanda", bedrooms: 6, bathrooms: 6, area: "550m²" },
-    { id: 5, type: "Residencial", image: imovel5, title: "Cobertura Exclusiva", price: "410M Kz", location: "Ilha de Luanda", bedrooms: 4, bathrooms: 5, area: "470m²" },
-    { id: 6, type: "Terreno", image: imovel6, title: "Terreno para Investimento", price: "150M Kz", location: "Viana, Luanda", area: "2.500m²" },
-  ]);
+  const [imoveis, setImoveis] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const carregarImoveis = async () => {
+      try {
+        const response = await getProperties();
+
+        // Caso a API devolva paginação
+        const dados = response.results || response;
+
+        setImoveis(dados.slice(0, 6));
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    carregarImoveis();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-32 px-6 bg-neutral-100">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center py-20">
+          <i className="fa-solid fa-spinner animate-spin text-5xl text-sky-700 mb-6"></i>
+
+          <h3 className="text-2xl font-black text-blue-950 mb-2">
+            Carregando imóveis...
+          </h3>
+
+          <p className="text-neutral-500 max-w-md">
+            Estamos a procurar os melhores imóveis para si. Aguarde alguns
+            instantes.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  if (!imoveis.length) {
+    return (
+      <section className="py-32 px-6 bg-neutral-100">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center text-center py-20">
+
+          <div className="w-24 h-24 rounded-full bg-sky-100 flex items-center justify-center mb-6">
+            <i className="fa-regular fa-building text-5xl text-sky-700"></i>
+          </div>
+
+          <h3 className="text-3xl font-black text-blue-950 mb-3">
+            Nenhum imóvel disponível
+          </h3>
+
+          <p className="text-neutral-500 max-w-lg leading-relaxed">
+            Neste momento ainda não existem imóveis em destaque.
+            Volte mais tarde para descobrir novas oportunidades de investimento.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-32 px-6 bg-neutral-100">
@@ -57,7 +114,7 @@ export default function ImoveisDestaque() {
               {/* Media Container */}
               <div className="relative h-80 overflow-hidden">
                 <img
-                  src={imovel.image}
+                  src={getPropertyImage(imovel)}
                   alt={imovel.title}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
@@ -65,9 +122,12 @@ export default function ImoveisDestaque() {
                 {/* Badges Flutuantes */}
                 <div className="absolute top-6 left-6 flex flex-col gap-2">
                   <span className="bg-sky-700 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest">
-                    {imovel.type}
+                    {propertyTypes[imovel.property_type] || imovel.property_type}
                   </span>
-                  {imovel.price.includes("410M") && (
+                  <span className="bg-white text-blue-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow">
+                    {transactionTypes[imovel.transaction_type]}
+                </span>
+                  {imovel.is_sponsored && (
                     <span className="bg-blue-950 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span>
                       Exclusivo
@@ -76,7 +136,7 @@ export default function ImoveisDestaque() {
                 </div>
 
                 <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-blue-950/90 to-transparent">
-                  <span className="text-white text-2xl font-black">{imovel.price}</span>
+                  <span className="text-white text-2xl font-black"> {formatPrice(imovel.price)}</span>
                 </div>
               </div>
 
@@ -88,13 +148,13 @@ export default function ImoveisDestaque() {
                   </h3>
                   <div className="flex items-center gap-2 text-neutral-500">
                     <i className="fa-solid fa-location-dot text-sky-700 text-xs"></i>
-                    <span className="text-xs font-bold uppercase tracking-wider">{imovel.location}</span>
+                    <span className="text-xs font-bold uppercase tracking-wider">{getPropertyLocation(imovel)}</span>
                   </div>
                 </div>
 
                 {/* Specs Inteligentes (Oculta se for Terreno) */}
                 <div className="grid grid-cols-3 gap-2 py-6 border-y border-neutral-100 mt-auto">
-                  {imovel.bedrooms > 0 && (
+                  {showBedrooms(imovel.property_type) && Number(imovel.bedrooms) >  0 && (
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] uppercase font-black text-neutral-400 tracking-tighter">Quartos</span>
                       <div className="flex items-center gap-2">
@@ -104,7 +164,7 @@ export default function ImoveisDestaque() {
                     </div>
                   )}
                   
-                  {imovel.bathrooms > 0 && (
+                  {showBathrooms(imovel.property_type) && Number(imovel.bathrooms) > 0 && (
                     <div className="flex flex-col gap-1">
                       <span className="text-[10px] uppercase font-black text-neutral-400 tracking-tighter">Suítes</span>
                       <div className="flex items-center gap-2">
@@ -118,13 +178,13 @@ export default function ImoveisDestaque() {
                     <span className="text-[10px] uppercase font-black text-neutral-400 tracking-tighter">Dimensão</span>
                     <div className="flex items-center gap-2">
                       <i className="fa-solid fa-vector-square text-blue-950 text-xs"></i>
-                      <span className="text-sm font-black text-blue-950">{imovel.area}</span>
+                      <span className="text-sm font-black text-blue-950">{formatArea(imovel.area_m2)}</span>
                     </div>
                   </div>
                 </div>
 
                 <Link 
-                  to="/imoveis/detalhes"
+                  to={`/imoveis/${imovel.id}`}
                   className="mt-8 flex items-center justify-between group/link"
                 >
                   <span className="text-xs font-black uppercase tracking-[0.2em] text-blue-950 group-hover/link:text-sky-700 transition-colors">
