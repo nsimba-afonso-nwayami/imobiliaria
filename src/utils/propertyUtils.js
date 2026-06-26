@@ -94,6 +94,16 @@ export const provinces = [
   "ZAIRE",
 ];
 
+export function createSlug(title) {
+  return title
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\w\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
 // REGRAS DE EXIBIÇÃO
 
 export const showBedrooms = (type) => {
