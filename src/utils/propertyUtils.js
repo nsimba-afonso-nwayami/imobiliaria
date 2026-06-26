@@ -70,6 +70,30 @@ export const getPropertyLocation = (property) => {
     .join(", ");
 };
 
+export const provinces = [
+  "BENGO",
+  "BENGUELA",
+  "BIÉ",
+  "CABINDA",
+  "CUANDO",
+  "CUBANGO",
+  "CUANZA NORTE",
+  "CUANZA SUL",
+  "CUNENE",
+  "HUAMBO",
+  "HUÍLA",
+  "ICOLO E BENGO",
+  "LUANDA",
+  "LUNDA NORTE",
+  "LUNDA SUL",
+  "MALANJE",
+  "MOXICO",
+  "MOXICO LESTE",
+  "NAMIBE",
+  "UÍGE",
+  "ZAIRE",
+];
+
 // REGRAS DE EXIBIÇÃO
 
 export const showBedrooms = (type) => {
