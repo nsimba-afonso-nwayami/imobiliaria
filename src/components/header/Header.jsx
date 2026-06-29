@@ -11,7 +11,6 @@ import {
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartCount] = useState(3);
   const location = useLocation();
   const [search, setSearch] = useState("");
   const [properties, setProperties] = useState([]);
@@ -164,15 +163,13 @@ export default function Header() {
 
           {/* Actions & Toggle */}
           <div className="flex items-center gap-4 md:gap-6">
-            <Link to="/carrinho" className="relative p-2 flex items-center justify-center text-slate-300 hover:text-sky-700 transition-all duration-300 group">
-                <i className="fa-solid fa-cart-shopping text-xl transition-transform group-hover:scale-110"></i>
-                {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-sky-700 text-slate-50 text-[10px] font-bold min-w-5 h-5 flex items-center justify-center rounded-full border-2 border-blue-950 shadow-lg">
-                      {cartCount}
-                    </span>
-                )}
+            <Link
+              to="/register"
+              className="hidden lg:flex items-center gap-2 bg-sky-700 hover:bg-sky-600 text-white px-6 py-2.5 rounded-lg font-bold text-xs uppercase tracking-widest transition"
+            >
+              <i className="fa-solid fa-plus"></i>
+              Anunciar Imóvel
             </Link>
-
             <Link
               to="/login"
               className="hidden sm:flex items-center gap-2 bg-sky-700 hover:bg-sky-600 text-slate-50 px-6 py-2.5 rounded-lg font-bold text-xs transition-all duration-300 uppercase tracking-widest shadow-lg"
