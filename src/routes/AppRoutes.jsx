@@ -11,8 +11,6 @@ import Home from "../pages/site/Home";
 import Imoveis from "../pages/site/Imoveis";
 import DetalhesImovel from "../pages/site/DetalhesImovel";
 import Categoria from "../pages/site/Categoria";
-import Carrinho from "../pages/site/Carrinho";
-import Checkout from "../pages/site/Checkout";
 import Sobre from "../pages/site/Sobre";
 import Contato from "../pages/site/Contato";
 import Privacidade from "../pages/site/Privacidade";
@@ -58,8 +56,6 @@ export default function AppRoutes() {
         <Route path="/imoveis" element={<Imoveis />} />
         <Route path="/imoveis/:slug" element={<DetalhesImovel />} />
         <Route path="/imoveis/categoria/:tipo" element={<Categoria />} />
-        <Route path="/carrinho" element={<Carrinho />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/privacidade" element={<Privacidade />} />
