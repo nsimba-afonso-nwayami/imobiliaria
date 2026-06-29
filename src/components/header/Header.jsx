@@ -60,6 +60,28 @@ export default function Header() {
     { name: "Contato", path: "/contato" },
   ];
 
+  //Função para destacar o texto pesquisado
+  const highlightMatch = (text, query) => {
+    if (!query) return text;
+
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? (
+        <mark
+          key={index}
+          className="bg-sky-100 text-sky-700 font-black rounded px-0.5"
+        >
+          {part}
+        </mark>
+      ) : (
+        part
+      )
+    );
+  };
+
   return (
     <header className="w-full shadow-2xl sticky top-0 z-50 transition-all duration-500">
       {/* Top Header */}
@@ -95,6 +117,7 @@ export default function Header() {
                       onClick={() => {
                         setSearch("");
                         setResults([]);
+                        document.activeElement.blur();
                       }}
                       className="flex gap-4 p-4 hover:bg-slate-50 transition border-b last:border-b-0"
                     >
@@ -106,11 +129,11 @@ export default function Header() {
 
                       <div className="flex-1">
                         <h4 className="font-bold text-blue-950 line-clamp-1">
-                          {item.title}
+                          {highlightMatch(item.title, search)}
                         </h4>
 
                         <p className="text-xs text-neutral-500 mt-1">
-                          {getPropertyLocation(item)}
+                          {highlightMatch(getPropertyLocation(item), search)}
                         </p>
 
                         <p className="text-sky-700 font-black mt-2">
