@@ -127,7 +127,7 @@ export default function ImoveisDestaque() {
                   </span>
                   <span className="bg-white text-blue-950 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow">
                     {transactionTypes[imovel.transaction_type]}
-                </span>
+                  </span>
                   {imovel.is_sponsored && (
                     <span className="bg-blue-950 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></span>
