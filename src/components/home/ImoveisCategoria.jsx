@@ -15,12 +15,26 @@ import cat6 from "../../assets/img/Imovel6.jpg";
 
 export default function ImoveisCategoria() {
   const categorias = [
-    { name: "Apartamentos", image: cat1, path: "/imoveis/categoria/" },
-    { name: "Vivendas", image: cat2, path: "/imoveis/categoria/" },
-    { name: "Escritórios", image: cat3, path: "/imoveis/categoria/" },
-    { name: "Terrenos", image: cat4, path: "/imoveis/categoria/" },
-    { name: "Comerciais", image: cat5, path: "/imoveis/categoria/" },
-    { name: "Luxo", image: cat6, path: "/imoveis/categoria/" },
+    {
+      name: "Apartamentos",
+      type: "apartment",
+      image: cat1,
+    },
+    {
+      name: "Vivendas",
+      type: "house",
+      image: cat2,
+    },
+    {
+      name: "Escritórios",
+      type: "office",
+      image: cat3,
+    },
+    {
+      name: "Terrenos",
+      type: "land",
+      image: cat4,
+    },
   ];
 
   return (
@@ -77,7 +91,7 @@ export default function ImoveisCategoria() {
             {categorias.map((cat, index) => (
               <SwiperSlide key={index}>
                 <Link
-                  to={cat.path}
+                  to={`/imoveis/categoria/${cat.type}`}
                   className="group relative block rounded-[2.5rem] overflow-hidden h-112.5 transition-all duration-700"
                 >
                   {/* Image com Zoom Industrial */}
