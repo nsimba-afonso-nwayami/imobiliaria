@@ -106,6 +106,12 @@ export default function DetalhesImovel() {
     );
   }
 
+  //Debug
+  console.log(imovel);
+  console.log(imovel?.videos);
+  console.log(hasPropertyVideo(imovel));
+  console.log(getPropertyVideo(imovel));
+
   return (
     <>
       <title>Detalhes | Imobiliária</title>
@@ -167,15 +173,15 @@ export default function DetalhesImovel() {
               {hasPropertyVideo(imovel) && (
                 <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(2,6,23,0.05)] border border-neutral-100 bg-black">
 
-                    <video
-                        controls
-                        className="w-full h-105 object-cover"
-                    >
-                        <source
-                            src={getPropertyVideo(imovel)}
-                            type="video/mp4"
-                        />
-                    </video>
+                  <video
+                    controls
+                    preload="metadata"
+                    playsInline
+                    className="w-full h-105 object-cover"
+                    src={getPropertyVideo(imovel)}
+                  >
+                    O seu navegador não suporta vídeo.
+                  </video>
 
                 </div>
               )}
@@ -211,69 +217,69 @@ export default function DetalhesImovel() {
               {/* Especificações Técnicas Grid */}
               <div className="grid grid-cols-2 gap-8 py-10">
                 {showBedrooms(imovel.property_type) && (
-                    <div>
-                        <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                            Quartos
-                        </span>
+                  <div>
+                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                      Quartos
+                    </span>
 
-                        <p className="text-blue-950 text-2xl font-black">
-                            {imovel.bedrooms || "--"}
-                        </p>
-                    </div>
+                    <p className="text-blue-950 text-2xl font-black">
+                      {imovel.bedrooms || "--"}
+                    </p>
+                  </div>
                 )}
 
                 {showBathrooms(imovel.property_type) && (
-                    <div>
-                        <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                            Casas de banho
-                        </span>
+                  <div>
+                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                      Casas de banho
+                    </span>
 
-                        <p className="text-blue-950 text-2xl font-black">
-                            {imovel.bathrooms || "--"}
-                        </p>
-                    </div>
+                    <p className="text-blue-950 text-2xl font-black">
+                      {imovel.bathrooms || "--"}
+                    </p>
+                  </div>
                 )}
 
                 {showParking(imovel.property_type) && (
-                    <div>
-                        <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                            Garagem
-                        </span>
+                  <div>
+                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                      Garagem
+                    </span>
 
-                        <p className="text-blue-950 text-2xl font-black">
-                            {imovel.parking_spaces || "--"}
-                        </p>
-                    </div>
+                    <p className="text-blue-950 text-2xl font-black">
+                      {imovel.parking_spaces || "--"}
+                    </p>
+                  </div>
                 )}
 
                 <div>
-                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                        Área
-                    </span>
+                  <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                    Área
+                  </span>
 
-                    <p className="text-blue-950 text-2xl font-black">
-                        {formatArea(imovel.area_m2)}
-                    </p>
+                  <p className="text-blue-950 text-2xl font-black">
+                    {formatArea(imovel.area_m2)}
+                  </p>
                 </div>
 
                 <div>
-                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                        Tipo
-                    </span>
+                  <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                    Tipo
+                  </span>
 
-                    <p className="text-blue-950 text-2xl font-black">
-                        {propertyTypes[imovel.property_type]}
-                    </p>
+                  <p className="text-blue-950 text-2xl font-black">
+                    {propertyTypes[imovel.property_type]}
+                  </p>
                 </div>
 
                 <div>
-                    <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
-                        Negócio
-                    </span>
+                  <span className="text-neutral-400 text-[10px] uppercase font-black tracking-widest">
+                    Negócio
+                  </span>
 
-                    <p className="text-blue-950 text-2xl font-black">
-                        {transactionTypes[imovel.transaction_type]}
-                    </p>
+                  <p className="text-blue-950 text-2xl font-black">
+                    {transactionTypes[imovel.transaction_type]}
+                  </p>
                 </div>
 
             </div>
