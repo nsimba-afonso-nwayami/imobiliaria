@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const API_URL = "https://imobiliaria.hossidev.com/api/";
 //const API_URL = "/api/";
 
