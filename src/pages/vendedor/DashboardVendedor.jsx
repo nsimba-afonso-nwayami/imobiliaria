@@ -157,10 +157,6 @@ export default function DashboardVendedor() {
     }
   };
 
-  useEffect(() => {
-    loadMyProperties();
-  }, []);
-
   const loadMyProperties = async () => {
     try {
       const data = await getMyProperties();
@@ -175,6 +171,10 @@ export default function DashboardVendedor() {
       setLoadingProperties(false);
     }
   };
+
+  useEffect(() => {
+    loadMyProperties();
+  }, []);
 
   const stats = [
     {
@@ -336,28 +336,6 @@ export default function DashboardVendedor() {
                 <h2 className="text-xl font-black text-blue-950 uppercase tracking-tighter">
                   O que fazer agora
                 </h2>
-              </div>
-
-              {/* CARD DE INTERESSADOS */}
-              <div className="bg-blue-950 rounded-4xl p-8 text-slate-50 relative overflow-hidden shadow-2xl group">
-                <div className="relative z-10">
-                  <h3 className="text-2xl font-black leading-tight mb-4 italic">
-                    Ver
-                    <br />
-                    Mensagens
-                  </h3>
-                  <p className="text-slate-300 text-xs mb-8 leading-relaxed uppercase tracking-tighter font-bold">
-                    Há compradores interessados em negociar o preço das suas
-                    propriedades.
-                  </p>
-                  <Link
-                    to="/dashboard/vendedor/clientes"
-                    className="inline-block bg-sky-700 text-slate-50 px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-sky-600 transition-all shadow-lg shadow-sky-700/20 active:scale-95"
-                  >
-                    Ver Compradores
-                  </Link>
-                </div>
-                <i className="fas fa-comments absolute -right-8 -bottom-8 text-9xl text-slate-50/5 rotate-12 group-hover:text-sky-700/20 transition-colors duration-700"></i>
               </div>
 
               {/* ANUNCIAR MAIS UM - TRIGGER DO MODAL */}
