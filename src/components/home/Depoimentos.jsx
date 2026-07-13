@@ -65,14 +65,6 @@ export default function Depoimentos() {
 
         {/* Header: Seu Conteúdo Original */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="flex justify-center items-center gap-3 mb-6">
-            <span className="w-8 h-px bg-sky-700"></span>
-            <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[10px]">
-              Depoimentos
-            </p>
-            <span className="w-8 h-px bg-sky-700"></span>
-          </div>
-
           <h2 className="text-white text-5xl md:text-6xl font-black tracking-tighter leading-tight">
             O que os nossos clientes dizem
           </h2>

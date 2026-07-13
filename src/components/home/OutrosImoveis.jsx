@@ -72,12 +72,6 @@ export default function OutrosImoveis() {
         {/* Header alinhado com o estilo Destaque */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16">
           <div className="max-w-xl">
-            <div className="flex items-center gap-3 mb-4">
-              <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[10px]">
-                Mais oportunidades
-              </p>
-            </div>
-
             <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-none">
               Outros imóveis
             </h2>

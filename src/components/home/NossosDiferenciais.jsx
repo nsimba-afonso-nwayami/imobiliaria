@@ -42,22 +42,10 @@ export default function NossosDiferenciais() {
 
   return (
     <section className="py-32 px-6 bg-neutral-100 relative overflow-hidden">
-      {/* Detalhe de Grid Industrial Lateral */}
-      <div className="absolute top-0 right-0 w-1/4 h-full opacity-[0.03] pointer-events-none">
-        <svg width="100%" height="100%"><pattern id="grid-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="currentColor" /></pattern><rect width="100%" height="100%" fill="url(#grid-dots)" /></svg>
-      </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header: Mantendo seu Texto Original */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <span className="w-8 h-0.5 bg-sky-700"></span>
-            <p className="text-sky-700 font-bold uppercase tracking-[0.4em] text-[10px]">
-              Diferenciais Premium
-            </p>
-            <span className="w-8 h-0.5 bg-sky-700"></span>
-          </div>
-
           <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-8">
             Muito além da compra de imóveis
           </h2>

@@ -10,27 +10,11 @@ export default function Sobre() {
 
   return (
     <section className="py-32 px-6 bg-white relative overflow-hidden">
-      {/* Elementos Arquitetônicos de Fundo */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-[0.02] pointer-events-none">
-        <svg width="100%" height="100%">
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1"/>
-          </pattern>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
-
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
           
           {/* Lado Esquerdo: Seu Conteúdo Original */}
           <div className="lg:sticky lg:top-32">
-            <div className="flex items-center gap-4 mb-8">
-              <p className="text-sky-700 font-bold uppercase tracking-[0.4em] text-[10px]">
-                Sobre a ImobiPremium
-              </p>
-            </div>
-
             <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-[1.1] mb-10">
               Mais de uma década conectando pessoas aos melhores investimentos imobiliários
             </h2>

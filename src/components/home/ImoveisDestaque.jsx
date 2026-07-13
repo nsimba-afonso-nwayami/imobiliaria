@@ -84,11 +84,6 @@ export default function ImoveisDestaque() {
         {/* Header com Design Assométrico */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-20">
           <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-              <p className="text-sky-700 font-bold uppercase tracking-[0.4em] text-[10px]">
-                Oportunidades de Investimento
-              </p>
-            </div>
             <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-none mb-8">
               Imóveis em <span className="text-sky-700">Destaque</span>
             </h2>

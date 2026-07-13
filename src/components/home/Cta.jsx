@@ -11,18 +11,6 @@ export default function Cta() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-200 h-125 bg-sky-700/10 blur-[180px] rounded-full pointer-events-none"></div>
 
       <div className="max-w-4xl mx-auto relative z-10 text-center">
-
-        {/* Badge de Status Ativo */}
-        <div className="inline-flex items-center gap-3 bg-white/5 border border-white/10 backdrop-blur-xl px-6 py-3 rounded-2xl mb-12">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
-          </span>
-          <p className="text-white font-black uppercase tracking-[0.4em] text-[10px]">
-            Consultoria Premium Disponível
-          </p>
-        </div>
-
         {/* Title: Mantendo seu Texto Original */}
         <h2 className="text-white text-5xl md:text-7xl font-black tracking-tighter leading-[1.1] mb-10">
           Pronto para investir no <span className="text-sky-500 italic">imóvel ideal</span>?
