@@ -62,12 +62,6 @@ export default function ContatoForm() {
           {/* Lado Direito - O Formulário */}
           <div>
             <div className="mb-12">
-              <div className="inline-flex items-center gap-3 bg-sky-700/5 border border-sky-700/10 px-5 py-2 rounded-full mb-8">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-700 animate-pulse"></span>
-                <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[9px]">
-                  Canal Exclusivo
-                </p>
-              </div>
 
               <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-[1.05] mb-8">
                 Vamos falar sobre o seu próximo <span className="text-sky-700 italic">investimento</span>
@@ -157,7 +151,7 @@ export default function ContatoForm() {
               </button>
 
               <p className="text-center text-neutral-400 text-[10px] uppercase tracking-widest font-bold">
-                ✓ Seus dados estão protegidos sob sigilo profissional
+                Seus dados estão protegidos sob sigilo profissional
               </p>
 
             </form>

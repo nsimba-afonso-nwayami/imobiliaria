@@ -21,18 +21,6 @@ export default function BannerContato() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="max-w-4xl">
 
-          {/* Badge */}
-          <div className="inline-flex items-center gap-4 bg-white/5 border border-white/10 backdrop-blur-xl px-6 py-3 rounded-2xl mb-10 animate-fade-in-up">
-            <div className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
-            </div>
-
-            <p className="text-white font-black uppercase tracking-[0.5em] text-[10px]">
-              Fale connosco
-            </p>
-          </div>
-
           {/* Título */}
           <h1 className="text-white text-6xl md:text-8xl font-black tracking-tighter leading-[0.95] mb-8 animate-fade-in-up delay-100">
             Estamos prontos <br />

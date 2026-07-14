@@ -38,12 +38,6 @@ export default function ContatoSection() {
 
         {/* Header Centralizado */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <div className="inline-flex items-center gap-3 bg-sky-700/5 border border-sky-700/10 px-5 py-2 rounded-full mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-700 animate-pulse"></span>
-            <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[9px]">
-              Informações de Contacto
-            </p>
-          </div>
 
           <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-[1.05] mb-8">
             Estamos mais perto do seu próximo <span className="text-sky-700 italic">investimento</span>
