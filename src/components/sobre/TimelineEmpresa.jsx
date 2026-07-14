@@ -39,12 +39,6 @@ export default function TimelineEmpresa() {
 
         {/* Header Centralizado - Exatamente como na seção Missão */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <div className="inline-block bg-sky-700/5 border border-sky-700/10 px-4 py-1.5 rounded-full mb-6">
-            <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[9px]">
-              Nossa trajetória
-            </p>
-          </div>
-
           <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-tight">
             Linha do <span className="text-sky-700 italic">Tempo</span>
           </h2>

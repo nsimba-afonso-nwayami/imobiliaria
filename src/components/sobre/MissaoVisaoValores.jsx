@@ -32,12 +32,6 @@ export default function MissaoVisaoValores() {
 
         {/* Header Centralizado */}
         <div className="text-center max-w-3xl mx-auto mb-24">
-          <div className="inline-block bg-sky-700/5 border border-sky-700/10 px-4 py-1.5 rounded-full mb-6">
-            <p className="text-sky-700 font-black uppercase tracking-[0.4em] text-[9px]">
-              Essência Corporativa
-            </p>
-          </div>
-
           <h2 className="text-blue-950 text-5xl md:text-6xl font-black tracking-tighter leading-tight">
             Nossos <span className="text-sky-700 italic">Pilares</span>
           </h2>
@@ -76,7 +70,6 @@ export default function MissaoVisaoValores() {
 
               {/* Detalhe de Rodapé do Card */}
               <div className="mt-12 flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="h-0.5 w-8 bg-sky-700"></div>
                 <span className="text-sky-700 font-black text-[9px] uppercase tracking-widest">Compromisso Imobi</span>
               </div>
 
