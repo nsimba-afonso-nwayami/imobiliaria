@@ -1,5 +1,4 @@
 import Hero from "../../components/home/Hero";
-import BuscaPropriedade from "../../components/home/BuscaPropriedade";
 import ImoveisDestaque from "../../components/home/ImoveisDestaque";
 import Sobre from "../../components/home/Sobre";
 import NossosDiferenciais from "../../components/home/NossosDiferenciais";
